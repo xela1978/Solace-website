@@ -1,0 +1,10 @@
+# Netlify config for Solace Brazilian Steakhouse (static site)
+[build]
+  publish = "."
+  # No build command needed – plain HTML/CSS/JS
+
+# Optional: any path that doesn't match a file serves index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
