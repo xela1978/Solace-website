@@ -1,0 +1,7 @@
+# Robots.txt for Solace Brazilian Steakhouse & Bar
+# Allow all search engines to crawl the site
+User-agent: *
+Allow: /
+
+# Sitemap location (replace TU-DOMINIO.com with your real domain)
+Sitemap: https://solacebraziliansteakhouse.com/sitemap.xml
