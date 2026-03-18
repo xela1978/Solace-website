@@ -1,27 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Solace Brazilian Steakhouse & Bar | Premium Rodízio in Lawrence, MA</title>
-  <meta name="description" content="Authentic Brazilian rodizio steakhouse in Lawrence, MA. Premium churrasco, handcrafted cocktails and traditional Brazilian dining experience.">
-  <meta name="keywords" content="Brazilian steakhouse, rodizio, churrasco, Lawrence MA, Solace, restaurant, gaucho, premium steak">
+  <title>Brazilian Steakhouse in Lawrence, MA | Solace Restaurant</title>
+  <meta name="description" content="Solace Brazilian Steakhouse & Bar – 101 Essex St, Lawrence MA. Authentic rodizio & Brazilian BBQ, premium cuts and cocktails. Best Brazilian steakhouse near you. Reserve now.">
+  <meta name="keywords" content="brazilian steakhouse, brazilian steakhouse lawrence ma, brazilian restaurant, rodizio near me, brazilian bbq, steakhouse near me, restaurants in lawrence ma, solace brazilian steakhouse, 101 essex st lawrence ma">
+  <!-- Canonical URL: avoids duplicate content from www/non-www, trailing slash, HTTP/HTTPS -->
   <link rel="canonical" href="https://solacebraziliansteakhouse.com/">
-  <!-- Open Graph (Facebook, LinkedIn, etc.) -->
+  <!-- Schema.org structured data: Restaurant, OpeningHours, Menu (single block for validators) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://solacebraziliansteakhouse.com/#website",
+        "url": "https://solacebraziliansteakhouse.com/",
+        "name": "Solace Brazilian Steakhouse & Bar",
+        "publisher": { "@id": "https://solacebraziliansteakhouse.com/#restaurant" }
+      },
+      {
+        "@type": "Restaurant",
+        "@id": "https://solacebraziliansteakhouse.com/#restaurant",
+        "name": "Solace Brazilian Steakhouse & Bar",
+        "description": "Authentic Brazilian steakhouse and rodizio in Lawrence, MA. Brazilian BBQ, churrasco, and steakhouse experience near you.",
+        "url": "https://solacebraziliansteakhouse.com/",
+        "telephone": "+1-978-616-2060",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "101 Essex St",
+          "addressLocality": "Lawrence",
+          "addressRegion": "MA",
+          "addressCountry": "US"
+        },
+        "geo": { "@type": "GeoCoordinates", "latitude": 42.7070, "longitude": -71.1631 },
+        "openingHours": "Tu-Su 11:00-00:00",
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Monday", "opens": "00:00", "closes": "00:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "11:00", "closes": "00:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "11:00", "closes": "00:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Thursday", "opens": "11:00", "closes": "00:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "11:00", "closes": "00:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "11:00", "closes": "00:00" },
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "11:00", "closes": "00:00" }
+        ],
+        "servesCuisine": "Brazilian",
+        "priceRange": "$$",
+        "acceptsReservations": true,
+        "image": "https://solacebraziliansteakhouse.com/image/logo1.png",
+        "hasMenu": { "@id": "https://solacebraziliansteakhouse.com/#menu" },
+        "sameAs": [
+          "https://instagram.com/solacebraziliansteakhouse",
+          "https://www.facebook.com/SolaceBrazilianSteakhouse"
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "0",
+          "bestRating": "5",
+          "worstRating": "1",
+          "reviewCount": "0"
+        }
+      },
+      {
+        "@type": "Menu",
+        "@id": "https://solacebraziliansteakhouse.com/#menu",
+        "name": "Solace Brazilian Steakhouse – Food & Drinks",
+        "hasMenuSection": [
+          {
+            "@type": "MenuSection",
+            "name": "Rodizio & Premium Cuts",
+            "hasMenuItem": [
+              { "@type": "MenuItem", "name": "Full Brazilian Rodizio", "offers": { "@type": "Offer", "price": "59.98", "priceCurrency": "USD" } },
+              { "@type": "MenuItem", "name": "Picanha", "offers": { "@type": "Offer", "price": "30", "priceCurrency": "USD" } },
+              { "@type": "MenuItem", "name": "Tomahawk", "offers": { "@type": "Offer", "price": "64", "priceCurrency": "USD" } },
+              { "@type": "MenuItem", "name": "Filet Mignon", "offers": { "@type": "Offer", "price": "35", "priceCurrency": "USD" } },
+              { "@type": "MenuItem", "name": "Whole Rack of Ribs", "offers": { "@type": "Offer", "price": "65", "priceCurrency": "USD" } }
+            ]
+          },
+          {
+            "@type": "MenuSection",
+            "name": "Appetizers & Cocktails",
+            "hasMenuItem": [
+              { "@type": "MenuItem", "name": "Rib Croquettes", "offers": { "@type": "Offer", "price": "10", "priceCurrency": "USD" } },
+              { "@type": "MenuItem", "name": "Tapioca Cubes", "offers": { "@type": "Offer", "price": "10", "priceCurrency": "USD" } },
+              { "@type": "MenuItem", "name": "Traditional Caipirinha", "offers": { "@type": "Offer", "price": "14", "priceCurrency": "USD" } },
+              { "@type": "MenuItem", "name": "Moscow Mule", "offers": { "@type": "Offer", "price": "13", "priceCurrency": "USD" } }
+            ]
+          }
+        ]
+      },
+      { "@type": "SiteNavigationElement", "name": "About Us", "url": "https://solacebraziliansteakhouse.com/#about" },
+      { "@type": "SiteNavigationElement", "name": "Contact", "url": "https://solacebraziliansteakhouse.com/#contact" },
+      { "@type": "SiteNavigationElement", "name": "Menu", "url": "https://solacebraziliansteakhouse.com/menus/food-menu.pdf" },
+      { "@type": "SiteNavigationElement", "name": "Reserve", "url": "https://docs.google.com/forms/d/e/1FAIpQLSf6Ax-45R_5r8WwqNqkScsGLa33V6pLEotKfFcNZf-0hu3oQw/viewform" },
+      { "@type": "SiteNavigationElement", "name": "Drinks Menu", "url": "https://solacebraziliansteakhouse.com/menus/drinks-menu.pdf" }
+    ]
+  }
+  </script>
+  <!-- Open Graph (Facebook, Instagram, WhatsApp, LinkedIn) -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://solacebraziliansteakhouse.com/">
-  <meta property="og:title" content="Solace Brazilian Steakhouse & Bar | Premium Rodízio in Lawrence, MA">
-  <meta property="og:description" content="Authentic Brazilian rodizio steakhouse in Lawrence, MA. Premium churrasco, handcrafted cocktails and traditional Brazilian dining experience.">
+  <meta property="og:title" content="Brazilian Steakhouse in Lawrence, MA | Solace Restaurant">
+  <meta property="og:description" content="Solace Brazilian Steakhouse & Bar – 101 Essex St, Lawrence MA. Authentic rodizio & Brazilian BBQ, premium cuts and cocktails. Best Brazilian steakhouse near you. Reserve now.">
   <meta property="og:image" content="https://solacebraziliansteakhouse.com/image/logo1.png">
+  <meta property="og:image:alt" content="Solace Brazilian Steakhouse & Bar – Brazilian steakhouse in Lawrence MA">
+  <meta property="og:site_name" content="Solace Brazilian Steakhouse & Bar">
   <meta property="og:locale" content="en_US">
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Solace Brazilian Steakhouse & Bar | Lawrence, MA">
-  <meta name="twitter:description" content="Authentic Brazilian rodizio. Premium churrasco, handcrafted cocktails in Lawrence, MA.">
+  <meta name="twitter:title" content="Brazilian Steakhouse in Lawrence, MA | Solace">
+  <meta name="twitter:description" content="Solace Brazilian Steakhouse & Bar – 101 Essex St, Lawrence MA. Rodizio & Brazilian BBQ near you. Reserve now.">
   <meta name="twitter:image" content="https://solacebraziliansteakhouse.com/image/logo1.png">
   <link rel="icon" href="image/favicon.ico" type="image/x-icon">
   <link rel="icon" href="image/favicon.png" type="image/png">
   <link rel="icon" href="image/favicon.jpg" type="image/jpeg">
+  <meta name="theme-color" content="#050505">
+  <meta name="robots" content="index, follow">
+  <link rel="preload" href="image/tmh.png" as="image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700&display=swap" rel="stylesheet">
@@ -92,15 +188,6 @@
       align-items: center;
       gap: 1rem;
     }
-    .nav-search {
-      background: none;
-      border: none;
-      color: var(--gray);
-      cursor: pointer;
-      font-size: 1.1rem;
-      padding: 0.25rem;
-    }
-    .nav-search:hover { color: var(--gold); }
     .btn-reserve {
       display: inline-flex;
       align-items: center;
@@ -150,7 +237,8 @@
       pointer-events: none;
     }
     .hero-left { position: relative; z-index: 1; max-width: 600px; }
-    .hero h1 {
+    .hero h1,
+    .hero h2 {
       font-family: 'Playfair Display', serif;
       font-weight: 700;
       font-size: clamp(2rem, 3.5vw, 3.25rem);
@@ -375,7 +463,8 @@
       overflow: hidden;
     }
     .dish-card .img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .dish-card h3 {
+    .dish-card h4,
+    .dish-card .dish-card-title {
       font-family: 'Playfair Display', serif;
       font-size: 1.15rem;
       color: var(--white);
@@ -518,7 +607,8 @@
       box-shadow: var(--shadow);
     }
     .menu-card .circle-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .menu-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); margin: 0 0 0.5rem; }
+    .menu-card h4,
+    .menu-card .menu-card-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); margin: 0 0 0.5rem; }
     .menu-card p { color: var(--gray); font-size: 0.9rem; margin: 0 0 0.5rem; line-height: 1.4; }
     .menu-card .price { font-weight: 700; color: var(--gold); font-size: 1.1rem; }
     .menu-nav {
@@ -865,10 +955,16 @@
     }
     .footer-newsletter-col .newsletter-form {
       display: flex;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       gap: 0;
     }
-    .footer-newsletter-col .newsletter-form input {
+    .footer-newsletter-col .newsletter-form .newsletter-row {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 0;
+      width: 100%;
+    }
+    .footer-newsletter-col .newsletter-form input[type="email"] {
       flex: 1;
       min-width: 0;
       padding: 0.85rem 1rem;
@@ -879,7 +975,7 @@
       font-family: 'Inter', sans-serif;
       font-size: 0.95rem;
     }
-    .footer-newsletter-col .newsletter-form input::placeholder { color: var(--gray); }
+    .footer-newsletter-col .newsletter-form input[type="email"]::placeholder { color: var(--gray); }
     .footer-newsletter-col .newsletter-form button {
       padding: 0.85rem 1.35rem;
       border: none;
@@ -893,6 +989,38 @@
       transition: background var(--transition), color var(--transition);
     }
     .footer-newsletter-col .newsletter-form button:hover { background: var(--gold-dark); color: #F5F5F5; }
+    .footer-newsletter-col .newsletter-privacy {
+      font-size: 0.75rem;
+      color: var(--gray);
+      margin: 0.75rem 0 0.5rem;
+      line-height: 1.4;
+      max-width: 320px;
+    }
+    .footer-newsletter-col .newsletter-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+      color: var(--gray);
+      line-height: 1.4;
+    }
+    .footer-newsletter-col .newsletter-consent input[type="checkbox"] {
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+      width: 1.1rem;
+      height: 1.1rem;
+      accent-color: var(--gold);
+      cursor: pointer;
+    }
+    .footer-newsletter-col .newsletter-confirmation {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .footer-newsletter-col .newsletter-form.is-submitted { display: none; }
     .footer-bottom-bar {
       border-top: 1px solid #161616;
       text-align: center;
@@ -1045,8 +1173,10 @@
       .footer-newsletter-col { text-align: center; }
       .footer-newsletter-col .newsletter-form { justify-content: center; }
       .footer-newsletter-col .newsletter-form { flex-direction: column; }
+      .footer-newsletter-col .newsletter-form .newsletter-row { flex-direction: column; }
       .footer-newsletter-col .newsletter-form input { border-radius: 10px; }
       .footer-newsletter-col .newsletter-form button { border-radius: 10px; }
+      .footer-newsletter-col .newsletter-privacy { max-width: none; }
       /* Promo banner: stack layout on mobile */
       .promo-banner-wrapper { padding: 40px 20px; }
       .promo-banner-premium {
@@ -1088,59 +1218,18 @@
       }
     }
   </style>
-  <!-- Structured Data for Google (LocalBusiness + Restaurant) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Restaurant",
-    "name": "Solace Brazilian Steakhouse & Bar",
-    "description": "Authentic Brazilian rodizio steakhouse in Lawrence, MA. Premium churrasco, handcrafted cocktails and traditional Brazilian dining experience.",
-    "url": "https://solacebraziliansteakhouse.com/",
-    "telephone": "+1-978-616-2060",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "101 Essex St",
-      "addressLocality": "Lawrence",
-      "addressRegion": "MA",
-      "addressCountry": "US"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 42.7070,
-      "longitude": -71.1631
-    },
-    "openingHoursSpecification": [
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Monday", "opens": "00:00", "closes": "00:00" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "11:00", "closes": "00:00" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "11:00", "closes": "00:00" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Thursday", "opens": "11:00", "closes": "00:00" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "11:00", "closes": "00:00" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "11:00", "closes": "00:00" },
-      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "11:00", "closes": "00:00" }
-    ],
-    "servesCuisine": "Brazilian",
-    "priceRange": "$$",
-    "acceptsReservations": true,
-    "image": "https://solacebraziliansteakhouse.com/image/logo1.png",
-    "sameAs": [
-      "https://instagram.com/solacebraziliansteakhouse",
-      "https://www.facebook.com/SolaceBrazilianSteakhouse"
-    ]
-  }
-  </script>
 </head>
 <body>
 
   <!-- 1. HEADER -->
   <header class="navbar">
-    <a href="#hero" class="logo"><img src="image/logo1.png" alt="Solace Brazilian Steakhouse & Bar" class="logo-img"></a>
+    <a href="#hero" class="logo"><img src="image/logo1.png" width="200" height="60" loading="lazy" alt="Solace Brazilian Steakhouse and Bar – Brazilian steakhouse Lawrence MA" class="logo-img"></a>
     <ul class="nav-links">
       <li><a href="menus/food-menu.pdf" target="_blank" rel="noopener">Menu</a></li>
       <li><a href="#about">About Us</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-right">
-      <button type="button" class="nav-search" aria-label="Search"><i class="fa-solid fa-search"></i></button>
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSf6Ax-45R_5r8WwqNqkScsGLa33V6pLEotKfFcNZf-0hu3oQw/viewform" class="btn-reserve" target="_blank" rel="noopener noreferrer">Reserve</a>
     </div>
   </header>
@@ -1149,8 +1238,9 @@
   <div id="hero">
     <section class="mobile-action-hub">
       <div class="mah-header">
-        <img src="image/logo1.png" alt="Solace Brazilian Steakhouse Logo" class="mah-logo">
-        <p class="mah-subtitle">Authentic Brazilian rodízio in Lawrence, MA</p>
+        <img src="image/logo1.png" width="200" height="60" alt="Solace Brazilian Steakhouse & Bar – Brazilian steakhouse Lawrence MA" class="mah-logo">
+        <h2 class="mah-title">Brazilian Steakhouse in Lawrence, MA</h2>
+        <p class="mah-subtitle">Authentic Brazilian rodízio & steakhouse near you. Solace restaurant at 101 Essex St, Lawrence MA — convenient to Andover & Methuen.</p>
       </div>
 
       <div class="mah-buttons">
@@ -1160,7 +1250,7 @@
         </a>
 
         <div class="mah-featured-image">
-          <img src="image/costilla.png" alt="Solace Experience">
+          <img src="image/costilla.png" width="600" height="400" alt="Brazilian steakhouse dish at Solace – Brazilian food Lawrence MA">
         </div>
 
         <a href="https://www.google.com/maps/search/?api=1&query=101+Essex+St+Lawrence+MA" class="mah-btn" target="_blank" rel="noopener">
@@ -1210,8 +1300,8 @@
     </section>
     <section class="desktop-hero hero">
       <div class="hero-left">
-        <h1>Premium Brazilian Rodízio<br>in Lawrence, MA</h1>
-        <p class="hero-subtitle">Experience authentic churrasco with premium cuts carved tableside. Our rodízio brings the tradition of Brazilian steakhouse dining to Massachusetts with handcrafted cocktails and an unforgettable atmosphere.</p>
+        <h1 class="hero-title">Brazilian Steakhouse in Lawrence, MA</h1>
+        <p class="hero-subtitle">Experience an authentic Brazilian steakhouse in Lawrence, MA. Our rodizio brings Brazilian BBQ and premium churrasco carved tableside — the best Brazilian restaurant near you, with handcrafted cocktails and a steakhouse experience you won't forget.</p>
         <div class="hero-btns">
           <a href="https://docs.google.com/forms/d/e/1FAIpQLSf6Ax-45R_5r8WwqNqkScsGLa33V6pLEotKfFcNZf-0hu3oQw/viewform" class="btn-solid" target="_blank" rel="noopener noreferrer">Reserve Table <i class="fa-solid fa-arrow-right"></i></a>
           <a href="menus/food-menu.pdf" class="btn-outline" target="_blank" rel="noopener">Explore Menu <i class="fa-solid fa-utensils"></i></a>
@@ -1219,10 +1309,10 @@
       </div>
       <div class="hero-right">
         <div class="hero-image-wrap">
-          <img src="image/tmh.png" alt="Tomahawk steak">
+          <img src="image/tmh.png" width="1200" height="800" alt="Tomahawk steak – premium cut at Brazilian steakhouse in Lawrence MA">
         </div>
         <div class="floating-badge">
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" alt="Guest">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" width="100" height="100" loading="lazy" alt="Guest review – Solace Brazilian steakhouse Lawrence MA">
           <div class="badge-text">
             <strong>4.9+ Local Reviews</strong>
             <span>Trusted by our guests</span>
@@ -1237,8 +1327,8 @@
   <div class="section-light-bg">
   <section class="about" id="about">
     <div>
-      <h2>Experience Authentic Brazilian Churrasco</h2>
-      <p>At Solace Brazilian Steakhouse & Bar, we bring the authentic flavors of Brazil to Lawrence. Our gauchos carve premium cuts tableside while you enjoy traditional sides and handcrafted cocktails in an elegant, welcoming setting.</p>
+      <h2>Authentic Brazilian Steakhouse Experience in Lawrence, MA</h2>
+      <p>Solace Brazilian Steakhouse & Bar – 101 Essex St, Lawrence MA – brings you an authentic Brazilian steakhouse experience in Lawrence MA. We're the Brazilian restaurant and rodizio near you that Lawrence, Andover, and Methuen diners trust for Brazilian BBQ and churrasco. Our gauchos carve premium cuts tableside while you enjoy traditional sides and handcrafted cocktails in an elegant, welcoming setting.</p>
       <div class="stats-row">
         <div class="stat-item"><strong>15+</strong><span>Premium Cuts</span></div>
         <div class="stat-item"><strong>100%</strong><span>Authentic Rodizio</span></div>
@@ -1248,10 +1338,10 @@
     </div>
     <div class="about-images">
       <div class="about-img">
-        <img src="image/experience-churrasco.png" alt="Churrasco en Solace">
+        <img src="image/experience-churrasco.png" width="600" height="400" loading="lazy" alt="Churrasco and Brazilian BBQ at Solace steakhouse Lawrence MA">
       </div>
       <div class="about-img">
-        <img src="image/experience-cocktail.png" alt="Cocktails Solace Brazilian Steakhouse">
+        <img src="image/experience-cocktail.png" width="600" height="400" loading="lazy" alt="Cocktails at Solace Brazilian restaurant – steakhouse Lawrence MA">
       </div>
     </div>
   </section>
@@ -1259,41 +1349,41 @@
 
   <!-- 4. SPECIAL DISHES -->
   <section class="dishes-section" id="dishes">
-    <h2 class="section-title">Special Dishes at Our Restaurant</h2>
-    <p class="section-subtitle">From our gaucho grill to your table — premium cuts and timeless favorites.</p>
+    <h2 class="section-title">Steakhouse Favorites at Our Brazilian Restaurant</h2>
+    <p class="section-subtitle">From our gaucho grill to your table — premium cuts and timeless steakhouse favorites. Brazilian food and steak restaurants near you in Lawrence, MA.</p>
     <div class="dishes-grid">
       <article class="dish-card">
         <div class="img-wrap">
-          <img src="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=600&q=80" alt="Picanha">
+          <img src="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=600&q=80" width="600" height="400" loading="lazy" alt="Picanha – Brazilian steakhouse cut at Solace Lawrence MA">
         </div>
-        <h3>Picanha</h3>
+        <h4 class="dish-card-title">Picanha</h4>
         <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
         <div class="price">$30</div>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSf6Ax-45R_5r8WwqNqkScsGLa33V6pLEotKfFcNZf-0hu3oQw/viewform" class="btn-small" target="_blank" rel="noopener">Reserve now</a>
       </article>
       <article class="dish-card">
         <div class="img-wrap">
-          <img src="image/tmh1.webp" alt="Tomahawk">
+          <img src="image/tmh1.webp" width="600" height="400" loading="lazy" alt="Tomahawk steak – steakhouse Lawrence MA Brazilian restaurant">
         </div>
-        <h3>Tomahawk</h3>
+        <h4 class="dish-card-title">Tomahawk</h4>
         <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
         <div class="price">$64</div>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSf6Ax-45R_5r8WwqNqkScsGLa33V6pLEotKfFcNZf-0hu3oQw/viewform" class="btn-small" target="_blank" rel="noopener">Reserve now</a>
       </article>
       <article class="dish-card">
         <div class="img-wrap">
-          <img src="image/filet_mignon_1200x.jpg" alt="Filet Mignon">
+          <img src="image/filet_mignon_1200x.jpg" width="1200" height="800" loading="lazy" alt="Filet Mignon – steak restaurants near me at Solace Lawrence MA">
         </div>
-        <h3>Filet Mignon</h3>
+        <h4 class="dish-card-title">Filet Mignon</h4>
         <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
         <div class="price">$35</div>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSf6Ax-45R_5r8WwqNqkScsGLa33V6pLEotKfFcNZf-0hu3oQw/viewform" class="btn-small" target="_blank" rel="noopener">Reserve now</a>
       </article>
       <article class="dish-card">
         <div class="img-wrap">
-          <img src="image/BEEF-RIBS.jpg" alt="Whole Rack of Ribs">
+          <img src="image/BEEF-RIBS.jpg" width="600" height="400" loading="lazy" alt="Whole Rack of Ribs – Brazilian steakhouse and BBQ Lawrence MA">
         </div>
-        <h3>Whole Rack of Ribs</h3>
+        <h4 class="dish-card-title">Whole Rack of Ribs</h4>
         <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
         <div class="price">$65</div>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSf6Ax-45R_5r8WwqNqkScsGLa33V6pLEotKfFcNZf-0hu3oQw/viewform" class="btn-small" target="_blank" rel="noopener">Reserve now</a>
@@ -1329,7 +1419,7 @@
       </div>
 
       <div class="wcu-image-wrapper">
-        <img src="image/costilla.png" alt="Solace Experience" class="wcu-main-image">
+        <img src="image/costilla.png" width="800" height="1000" loading="lazy" alt="Brazilian food and steakhouse experience at Solace – 101 Essex St Lawrence MA" class="wcu-main-image">
       </div>
     </div>
   </section>
@@ -1341,33 +1431,33 @@
     <div class="menu-grid">
       <article class="menu-card">
         <div class="circle-img">
-          <img src="image/rib-croquettes.png" alt="Rib Croquettes">
+          <img src="image/rib-croquettes.png" width="200" height="200" loading="lazy" alt="Rib Croquettes – Brazilian restaurant appetizer Solace Lawrence MA">
         </div>
-        <h3>Rib Croquettes</h3>
+        <h4 class="menu-card-title">Rib Croquettes</h4>
         <p>Crispy croquettes with tender rib meat and Brazilian spices.</p>
         <div class="price">$10</div>
       </article>
       <article class="menu-card">
         <div class="circle-img">
-          <img src="image/tapioca%20cubes.webp" alt="Tapioca Cubes">
+          <img src="image/tapioca%20cubes.webp" width="200" height="200" loading="lazy" alt="Tapioca Cubes – Brazilian food at Solace steakhouse Lawrence MA">
         </div>
-        <h3>Tapioca Cubes</h3>
+        <h4 class="menu-card-title">Tapioca Cubes</h4>
         <p>Golden fried tapioca with a soft center, a Brazilian classic.</p>
         <div class="price">$10</div>
       </article>
       <article class="menu-card">
         <div class="circle-img">
-          <img src="image/caipirinha.png" alt="Traditional Caipirinha">
+          <img src="image/caipirinha.png" width="200" height="200" loading="lazy" alt="Traditional Caipirinha – Brazilian restaurant cocktail Solace Lawrence MA">
         </div>
-        <h3>Traditional Caipirinha</h3>
+        <h4 class="menu-card-title">Traditional Caipirinha</h4>
         <p>Cachaça, lime, and sugar — the national cocktail of Brazil.</p>
         <div class="price">$14</div>
       </article>
       <article class="menu-card">
         <div class="circle-img">
-          <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=200&h=200&fit=crop" alt="Moscow Mule">
+          <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=200&h=200&fit=crop" width="200" height="200" loading="lazy" alt="Moscow Mule – cocktails at Solace Brazilian steakhouse Lawrence MA">
         </div>
-        <h3>Moscow Mule</h3>
+        <h4 class="menu-card-title">Moscow Mule</h4>
         <p>Vodka, ginger beer, and lime in a copper mug.</p>
         <div class="price">$13</div>
       </article>
@@ -1382,14 +1472,14 @@
   <section class="promo-banner-wrapper">
     <div class="promo-banner-premium">
       <div class="promo-content-left">
-        <h2 class="promo-title">Full Brazilian Rodizio</h2>
-        <p class="promo-desc">Enjoy our authentic all-you-can-eat experience including premium cuts and sides. The true taste of churrasco in Lawrence, MA.</p>
+        <h2 class="promo-title">Full Brazilian Rodizio Near You</h2>
+        <p class="promo-desc">Enjoy our authentic all-you-can-eat rodizio experience including premium cuts and sides. The true taste of Brazilian BBQ and churrasco in Lawrence, MA.</p>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSf6Ax-45R_5r8WwqNqkScsGLa33V6pLEotKfFcNZf-0hu3oQw/viewform" class="btn-black-solid" target="_blank" rel="noopener">Reserve for $59.98 &rarr;</a>
       </div>
 
       <div class="promo-image-right">
         <div class="promo-badge-dark">-15% off Lunch</div>
-        <img src="image/rodizio.png" alt="Brazilian Rodizio Skewer" class="promo-meat-skewer">
+        <img src="image/rodizio.png" width="400" height="600" loading="lazy" alt="Rodizio skewer – Brazilian BBQ and rodizio near me at Solace Lawrence MA" class="promo-meat-skewer">
       </div>
     </div>
   </section>
@@ -1427,8 +1517,8 @@
   <section class="destination-section" id="contact">
     <div class="destination-grid">
       <div class="destination-left">
-        <h2 class="destination-title">Your Favourite Steakhouse Destination</h2>
-        <p class="destination-subtitle">Reserve, visit, and enjoy — we make it easy.</p>
+        <h2 class="destination-title">Your Favourite Steakhouse Destination in Lawrence, MA</h2>
+        <p class="destination-subtitle">Reserve, visit, and enjoy — the best Brazilian steakhouse and places to eat near you. Solace Brazilian Steakhouse and Bar, Lawrence.</p>
         <ul class="destination-features">
           <li>
             <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-calendar-check"></i></span>
@@ -1442,7 +1532,7 @@
             <span class="feature-icon" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></span>
             <div class="feature-text">
               <strong>Premium Location</strong>
-              <span>101 Essex St, Lawrence MA</span>
+              <span>Solace Brazilian Steakhouse & Bar – 101 Essex St, Lawrence MA. Restaurants in Lawrence MA — easy drive from Andover and Methuen.</span>
             </div>
           </li>
           <li>
@@ -1456,15 +1546,15 @@
       </div>
       <div class="destination-right">
         <div class="destination-horario-card" aria-labelledby="horario-heading">
-          <h3 id="horario-heading" class="horario-title"><i class="fa-solid fa-clock"></i> Horario</h3>
+          <h3 id="horario-heading" class="horario-title"><i class="fa-solid fa-clock"></i> Hours</h3>
           <ul class="destination-horario-list">
-            <li><span class="day">Lunes</span><span class="time cerrado">Cerrado</span></li>
-            <li><span class="day">Martes</span><span class="time">11 a.m.–12 a.m.</span></li>
-            <li><span class="day">Miércoles</span><span class="time">11 a.m.–12 a.m.</span></li>
-            <li><span class="day">Jueves</span><span class="time">11 a.m.–12 a.m.</span></li>
-            <li><span class="day">Viernes</span><span class="time">11 a.m.–12 a.m.</span></li>
-            <li><span class="day">Sábado</span><span class="time">11 a.m.–12 a.m.</span></li>
-            <li><span class="day">Domingo</span><span class="time">11 a.m.–12 a.m.</span></li>
+            <li><span class="day">Monday</span><span class="time cerrado">Closed</span></li>
+            <li><span class="day">Tuesday</span><span class="time">11 a.m.–12 a.m.</span></li>
+            <li><span class="day">Wednesday</span><span class="time">11 a.m.–12 a.m.</span></li>
+            <li><span class="day">Thursday</span><span class="time">11 a.m.–12 a.m.</span></li>
+            <li><span class="day">Friday</span><span class="time">11 a.m.–12 a.m.</span></li>
+            <li><span class="day">Saturday</span><span class="time">11 a.m.–12 a.m.</span></li>
+            <li><span class="day">Sunday</span><span class="time">11 a.m.–12 a.m.</span></li>
           </ul>
         </div>
       </div>
@@ -1476,9 +1566,9 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="footer-logo">
-          <a href="#hero"><img src="image/logo1.png" alt="Solace Brazilian Steakhouse & Bar"></a>
+          <a href="#hero"><img src="image/logo1.png" width="200" height="60" loading="lazy" alt="Solace Brazilian Steakhouse and Bar – 101 Essex St Lawrence MA"></a>
         </div>
-        <address>101 Essex St, Lawrence MA</address>
+        <address>Solace Brazilian Steakhouse & Bar – 101 Essex St, Lawrence MA</address>
         <p class="footer-phone"><a href="tel:+19786162060">(978) 616-2060</a></p>
         <p class="follow-label">Follow Us</p>
         <div class="footer-social-icons">
@@ -1489,10 +1579,9 @@
       <div class="footer-col">
         <h4>CUSTOMER SERVICE</h4>
         <ul>
-          <li><a href="#">FAQ</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li><a href="#">Our Journal</a></li>
-          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms and Conditions</a></li>
+          <li><a href="cookies.html">Cookie Policy</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1507,11 +1596,19 @@
       </div>
       <div class="footer-newsletter-col">
         <h4>Stay Updated</h4>
-        <p class="newsletter-desc">Sign up for exclusive offers and events.</p>
+        <p class="newsletter-desc">Sign up for exclusive offers, events, and news from Solace.</p>
         <form class="newsletter-form" action="#" method="post" aria-label="Newsletter signup">
-          <input type="email" placeholder="Enter your email" required aria-label="Email">
-          <button type="submit">Subscribe</button>
+          <div class="newsletter-row">
+            <input type="email" name="newsletter-email" placeholder="Enter your email" required aria-label="Email" autocomplete="email">
+            <button type="submit">Subscribe</button>
+          </div>
+          <p class="newsletter-privacy" id="newsletter-privacy-text">We use your email only to send news, offers, and event updates. We don't sell your data. Unsubscribe anytime in every email.</p>
+          <label class="newsletter-consent">
+            <input type="checkbox" name="consent" required aria-describedby="newsletter-privacy-text">
+            <span>I agree to receive marketing emails from Solace Brazilian Steakhouse & Bar. I can unsubscribe at any time.</span>
+          </label>
         </form>
+        <p class="newsletter-confirmation" role="status" aria-live="polite" hidden>Thank you! Please check your inbox to confirm your subscription.</p>
       </div>
     </div>
     <div class="footer-bottom-bar">
@@ -1521,12 +1618,21 @@
 
   <script>
     (function() {
-      // Newsletter form: prevent default and show feedback (optional)
-      document.querySelector('.newsletter-form') && document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        var email = this.querySelector('input[type="email"]').value;
-        if (email) alert('Thank you for subscribing! We\'ll send updates to ' + email);
-      });
+      // Newsletter form: consent required (GDPR), show on-page confirmation
+      var form = document.querySelector('.newsletter-form');
+      var confirmation = document.querySelector('.newsletter-confirmation');
+      if (form && confirmation) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var emailInput = this.querySelector('input[type="email"]');
+          var consent = this.querySelector('input[name="consent"]');
+          if (!consent || !consent.checked) return;
+          if (emailInput && emailInput.value) {
+            form.classList.add('is-submitted');
+            confirmation.removeAttribute('hidden');
+          }
+        });
+      }
 
       // Optional: testimonial carousel — cycle active state
       var cards = document.querySelectorAll('.testimonial-card');

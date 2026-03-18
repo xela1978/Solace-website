@@ -1,5 +1,16 @@
 # SEO y Google Business Profile – Solace
 
+## Mejoras ya aplicadas para Google
+
+- **Meta y enlaces:** title, description, keywords, canonical, Open Graph, Twitter Card.
+- **Datos estructurados:** JSON-LD tipo Restaurant (nombre, dirección, teléfono, horario, etc.).
+- **Archivos técnicos:** `robots.txt`, `sitemap.xml`.
+- **Rendimiento:** `preload` de la imagen principal del hero, `loading="lazy"` en el resto de imágenes.
+- **Señales para buscadores:** `theme-color`, `robots: index, follow`.
+- **Imágenes:** textos alternativos (`alt`) en todas las imágenes.
+
+---
+
 ## Archivos creados
 
 | Archivo | Uso |
@@ -63,3 +74,13 @@ Las meta **og:image** y **twitter:image** usan `image/logo1.png`. Si quieres una
 
 - **Archivos listos:** `robots.txt`, `sitemap.xml`, meta tags y JSON-LD en `index.html`.  
 - **Tú:** reemplazar `TU-DOMINIO.com` por tu dominio, verificar en Search Console, enviar el sitemap y configurar/verificar Google Business Profile.
+
+---
+
+## Recomendaciones adicionales (fuera del código)
+
+1. **Imágenes:** Comprimir fotos (TinyPNG, Squoosh) y usar WebP donde puedas para mejorar velocidad y Core Web Vitals.
+2. **Contenido:** Añadir una sección tipo “Preguntas frecuentes” (FAQ) con schema FAQPage ayuda a aparecer en resultados enriquecidos.
+3. **Google Business Profile:** Mantener horarios, fotos y publicaciones al día; responder reseñas.
+4. **Enlaces:** Conseguir enlaces desde directorios locales, guías y medios (Lawrence, MA, restaurantes) mejora la autoridad.
+5. **Velocidad:** En Netlify la página ya se sirve rápido; si añades muchas imágenes, considera CDN o tamaños adaptativos.
