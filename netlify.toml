@@ -3,6 +3,13 @@
   publish = "."
   # No build command needed – plain HTML/CSS/JS
 
+# Short URL for Google reviews (share: solacebraziliansteakhouse.com/review)
+[[redirects]]
+  from = "/review"
+  to = "https://search.google.com/local/writereview?placeid=ChIJHxyLbkUH44kRaTzjRQ7Dm1s"
+  status = 302
+  force = true
+
 # Optional: any path that doesn't match a file serves index.html
 [[redirects]]
   from = "/*"
