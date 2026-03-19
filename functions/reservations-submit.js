@@ -83,6 +83,29 @@ exports.handler = async (event) => {
   var resendOk = false;
   var resendError = '';
 
+  // Debug: log only non-sensitive configuration.
+  try {
+    const maskEmail = function (email) {
+      if (!email || typeof email !== 'string') return '';
+      var parts = email.split('@');
+      if (parts.length !== 2) return email;
+      var user = parts[0];
+      var domain = parts[1];
+      var head = user.slice(0, 2);
+      return head + '***@' + domain;
+    };
+    console.log('Email providers config:',
+      {
+        webhookConfigured: !!webhookUrl,
+        resendConfigured: !!(resendApiKey && resendTo && resendFrom),
+        resendTo: maskEmail(resendTo),
+        resendFrom: maskEmail(resendFrom),
+      }
+    );
+  } catch (e) {
+    // ignore
+  }
+
   if (resendApiKey && resendTo && resendFrom) {
     try {
       const datePart = record.reservation_date ? ` ${record.reservation_date}` : '';
