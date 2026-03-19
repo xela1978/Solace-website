@@ -157,8 +157,8 @@
     <div class="card">
       <form id="loginForm">
         <div class="field">
-          <label for="adminKey">Key</label>
-          <input id="adminKey" name="adminKey" type="password" placeholder="Enter manager key" required autocomplete="current-password" />
+          <label for="adminKey">Password</label>
+          <input id="adminKey" name="adminKey" type="password" placeholder="Enter manager password" required autocomplete="current-password" />
         </div>
         <button type="submit">Access</button>
       </form>
@@ -253,9 +253,11 @@
             emptyState.style.display = 'block';
             results.style.display = 'block';
             setStatus('All set. No reservations yet.', false);
+            form.style.display = 'none';
             return;
           }
 
+          form.style.display = 'none';
           reservations.forEach(function (r) {
             var tr = document.createElement('tr');
             tr.innerHTML =
