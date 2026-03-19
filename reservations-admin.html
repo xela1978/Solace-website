@@ -466,10 +466,22 @@
           if (updateRes && updateRes.status) {
             setStatus('Updated to: ' + updateRes.status, false);
           }
-          // Re-load the current tab without relying on a page refresh.
-          // This ensures the list updates immediately after status changes.
-          try { sessionStorage.setItem(ADMIN_VIEW_STORAGE, currentView); } catch (e2) { /* ignore */ }
-          var refreshed = await loadReservations(currentAdminKey, currentView);
+          // Re-load the current tab with a small retry because Blobs can be eventually consistent.
+          var attempts = 4;
+          var refreshed = null;
+          for (var i = 0; i < attempts; i++) {
+            if (i > 0) {
+              await new Promise(function (resolve) { setTimeout(resolve, 350 * i); });
+            }
+            refreshed = await loadReservations(currentAdminKey, currentView);
+            var stillVisible = Array.isArray(refreshed) && refreshed.some(function (r) {
+              return String(r && r.id ? r.id : '') === String(id);
+            });
+
+            // If it disappeared from the current tab, we're done.
+            if (!stillVisible) break;
+          }
+
           tbody.innerHTML = '';
           emptyState.style.display = 'none';
 
