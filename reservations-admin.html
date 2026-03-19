@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservations Admin | Solace</title>
+  <meta name="description" content="Manage Solace reservations (requires key).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --gold:#C8A24A;
+      --gold-dark:#9A7A2F;
+      --black:#050505;
+      --surface:#161616;
+      --surface-border:#2A2A2A;
+      --white:#F5F5F5;
+      --gray:#A0A0A0;
+      --radius:16px;
+      --radius-lg:24px;
+      --radius-btn:14px;
+      --transition:0.3s ease;
+      --shadow:0 10px 40px rgba(0,0,0,0.25);
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family:'Inter',sans-serif;
+      background:var(--black);
+      color:var(--white);
+      line-height:1.6;
+    }
+    .wrap{
+      max-width:980px;
+      margin:0 auto;
+      padding:56px 20px;
+    }
+    h1{
+      font-family:'Playfair Display',serif;
+      margin:0 0 8px;
+      font-size:clamp(2rem,3vw,2.6rem);
+    }
+    .sub{
+      color:var(--gray);
+      margin:0 0 22px;
+      max-width:720px;
+    }
+    .card{
+      background:var(--surface);
+      border:1px solid var(--surface-border);
+      border-radius:var(--radius-lg);
+      box-shadow:var(--shadow);
+      padding:20px;
+    }
+    form{ display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end; }
+    .field{ flex:1; min-width:240px; display:flex; flex-direction:column; gap:8px; }
+    label{ font-weight:800; }
+    input{
+      padding:12px;
+      border-radius:12px;
+      border:1px solid rgba(42,42,42,1);
+      background:#0f0f0f;
+      color:var(--white);
+      outline:none;
+      font-family:inherit;
+    }
+    button{
+      padding:12px 18px;
+      border-radius:var(--radius-btn);
+      border:none;
+      background:var(--gold);
+      color:var(--black);
+      font-weight:900;
+      cursor:pointer;
+      transition:transform var(--transition), background var(--transition);
+      white-space:nowrap;
+    }
+    button:hover{ background:var(--gold-dark); transform:translateY(-2px); }
+    .status{
+      margin-top:14px;
+      color:var(--gray);
+      font-weight:600;
+    }
+    .error{ color:#ff6b6b; }
+    .table-wrap{ margin-top:18px; overflow:auto; }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:0.95rem;
+      min-width:720px;
+    }
+    th, td{
+      padding:12px 10px;
+      border-bottom:1px solid rgba(42,42,42,0.9);
+      vertical-align:top;
+    }
+    th{
+      text-align:left;
+      color:var(--gold);
+      font-weight:900;
+    }
+    td{ color:var(--white); }
+    .tag{
+      display:inline-block;
+      padding:4px 10px;
+      border:1px solid rgba(200,162,74,0.35);
+      border-radius:999px;
+      color:var(--gold);
+      font-weight:800;
+      font-size:0.85rem;
+    }
+    .empty{
+      color:var(--gray);
+      margin-top:14px;
+      font-weight:700;
+    }
+    footer{
+      color:var(--gray);
+      text-align:center;
+      padding:18px 20px 28px;
+    }
+    @media (max-width: 768px){
+      .wrap{ padding:42px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Manage reservations</h1>
+    <p class="sub">Enter the manager key to load saved reservations. (Server-side protected.)</p>
+
+    <div class="card">
+      <form id="loginForm">
+        <div class="field">
+          <label for="adminKey">Key</label>
+          <input id="adminKey" name="adminKey" type="password" placeholder="Enter manager key" required autocomplete="current-password" />
+        </div>
+        <button type="submit">Access</button>
+      </form>
+
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+
+      <div id="results" style="display:none;" class="table-wrap">
+        <table aria-label="Reservations">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Guest</th>
+              <th>Contact</th>
+              <th>Date/Time</th>
+              <th>Party size</th>
+              <th>Notes</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div id="emptyState" class="empty" style="display:none;">No reservations yet.</div>
+      </div>
+    </div>
+
+    <footer>
+      To configure the key: set `RESERVATIONS_ADMIN_KEY` in your Netlify project.
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var form = document.getElementById('loginForm');
+      var status = document.getElementById('status');
+      var results = document.getElementById('results');
+      var tbody = document.getElementById('tbody');
+      var emptyState = document.getElementById('emptyState');
+      var currentAdminKey = '';
+
+      function setStatus(msg, isError) {
+        status.textContent = msg || '';
+        status.classList.toggle('error', !!isError);
+      }
+
+      function escapeHtml(str) {
+        if (str === null || str === undefined) return '';
+        return String(str).replace(/[&<>"']/g, function (m) {
+          return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
+        });
+      }
+
+      async function loadReservations(adminKey) {
+        var res = await fetch('/.netlify/functions/reservations-admin', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ adminKey: adminKey })
+        });
+
+        if (!res.ok) {
+          var text = await res.text().catch(function(){ return ''; });
+          throw new Error(text || ('HTTP ' + res.status));
+        }
+        return await res.json();
+      }
+
+      async function deleteReservation(adminKey, id) {
+        var res = await fetch('/.netlify/functions/reservations-admin-delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ adminKey: adminKey, id: id })
+        });
+
+        if (!res.ok) {
+          var text = await res.text().catch(function(){ return ''; });
+          throw new Error(text || ('HTTP ' + res.status));
+        }
+        return await res.json();
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        results.style.display = 'none';
+        tbody.innerHTML = '';
+        emptyState.style.display = 'none';
+
+        var adminKey = document.getElementById('adminKey').value;
+        currentAdminKey = adminKey;
+        setStatus('Loading reservations...', false);
+
+        try {
+          var reservations = await loadReservations(adminKey);
+          var hasAny = Array.isArray(reservations) && reservations.length > 0;
+
+          if (!hasAny) {
+            emptyState.style.display = 'block';
+            results.style.display = 'block';
+            setStatus('All set. No reservations yet.', false);
+            return;
+          }
+
+          reservations.forEach(function (r) {
+            var tr = document.createElement('tr');
+            tr.innerHTML =
+              '<td><span class="tag">' + escapeHtml(r.id) + '</span></td>' +
+              '<td>' + escapeHtml(r.name) + '</td>' +
+              '<td>' + escapeHtml(r.email) + '<br/>' + escapeHtml(r.phone) + '</td>' +
+              '<td>' + escapeHtml(r.reservation_date) + '<br/>' + escapeHtml(r.reservation_time) + '</td>' +
+              '<td>' + escapeHtml(r.party_size) + '</td>' +
+              '<td>' + escapeHtml(r.notes) + '</td>' +
+              '<td><button type="button" class="delete-btn" data-id="' + escapeHtml(r.id) + '">Borrar</button></td>';
+            tbody.appendChild(tr);
+          });
+
+          results.style.display = 'block';
+          setStatus('Reservations loaded: ' + reservations.length, false);
+        } catch (err) {
+          setStatus('Could not load. Check the key or configuration. ' + (err && err.message ? err.message : ''), true);
+          results.style.display = 'none';
+        }
+      });
+
+      tbody.addEventListener('click', async function (e) {
+        var target = e.target;
+        if (!target || !target.classList || !target.classList.contains('delete-btn')) return;
+        var id = target.getAttribute('data-id');
+        if (!id) return;
+
+        if (!confirm('Delete reservation ' + id + '?')) return;
+
+        try {
+          setStatus('Deleting reservation...', false);
+          await deleteReservation(currentAdminKey, id);
+          var reservations = await loadReservations(currentAdminKey);
+
+          tbody.innerHTML = '';
+          emptyState.style.display = 'none';
+
+          if (!Array.isArray(reservations) || reservations.length === 0) {
+            emptyState.style.display = 'block';
+            setStatus('All set. No reservations left.', false);
+            return;
+          }
+
+          reservations.forEach(function (r) {
+            var tr = document.createElement('tr');
+            tr.innerHTML =
+              '<td><span class="tag">' + escapeHtml(r.id) + '</span></td>' +
+              '<td>' + escapeHtml(r.name) + '</td>' +
+              '<td>' + escapeHtml(r.email) + '<br/>' + escapeHtml(r.phone) + '</td>' +
+              '<td>' + escapeHtml(r.reservation_date) + '<br/>' + escapeHtml(r.reservation_time) + '</td>' +
+              '<td>' + escapeHtml(r.party_size) + '</td>' +
+              '<td>' + escapeHtml(r.notes) + '</td>' +
+              '<td><button type="button" class="delete-btn" data-id="' + escapeHtml(r.id) + '">Borrar</button></td>';
+            tbody.appendChild(tr);
+          });
+
+          setStatus('Deleted. Remaining: ' + reservations.length, false);
+        } catch (err) {
+          setStatus('Could not delete. ' + (err && err.message ? err.message : ''), true);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+

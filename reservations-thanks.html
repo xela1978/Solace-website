@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gracias | Solace Reservations</title>
+  <meta name="description" content="Thanks for your reservation request. We will contact you shortly.">
+  <style>
+    :root{
+      --gold:#C8A24A;
+      --gold-dark:#9A7A2F;
+      --black:#050505;
+      --surface:#161616;
+      --surface-border:#2A2A2A;
+      --white:#F5F5F5;
+      --gray:#A0A0A0;
+      --radius-lg:24px;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background:var(--black);
+      color:var(--white);
+      line-height:1.6;
+      display:flex;
+      min-height:100vh;
+      align-items:center;
+      justify-content:center;
+      padding:30px 20px;
+    }
+    .card{
+      width:100%;
+      max-width:720px;
+      background:var(--surface);
+      border:1px solid var(--surface-border);
+      border-radius:var(--radius-lg);
+      padding:28px;
+      text-align:center;
+    }
+    h1{
+      margin:0 0 10px;
+      font-size:2rem;
+      letter-spacing:0.2px;
+    }
+    p{ color:var(--gray); margin:0 0 18px; }
+    a{
+      display:inline-block;
+      margin-top:10px;
+      text-decoration:none;
+      color:var(--black);
+      background:var(--gold);
+      padding:12px 18px;
+      border-radius:14px;
+      font-weight:900;
+      transition:background 0.2s ease, transform 0.2s ease;
+    }
+    a:hover{ background:var(--gold-dark); transform:translateY(-2px); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Thank you!</h1>
+    <p>We received your reservation request. We'll contact you soon by email to confirm.</p>
+    <a href="reserve.html">Make another reservation</a>
+  </div>
+</body>
+</html>
+

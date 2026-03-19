@@ -49,23 +49,20 @@
         "priceRange": "$$",
         "acceptsReservations": true,
         "image": "https://solacebraziliansteakhouse.com/image/logo1.png",
-        "hasMenu": { "@id": "https://solacebraziliansteakhouse.com/#menu" },
+        "hasMenu": [
+          { "@id": "https://solacebraziliansteakhouse.com/menus/food-menu.html#food-menu" },
+          { "@id": "https://solacebraziliansteakhouse.com/menus/drinks-menu.html#drinks-menu" }
+        ],
         "sameAs": [
           "https://instagram.com/solacebraziliansteakhouse",
           "https://www.facebook.com/SolaceBrazilianSteakhouse"
-        ],
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "0",
-          "bestRating": "5",
-          "worstRating": "1",
-          "reviewCount": "0"
-        }
+        ]
       },
       {
         "@type": "Menu",
-        "@id": "https://solacebraziliansteakhouse.com/#menu",
-        "name": "Solace Brazilian Steakhouse – Food & Drinks",
+        "@id": "https://solacebraziliansteakhouse.com/menus/food-menu.html#food-menu",
+        "name": "Solace Brazilian Steakhouse – Food Menu",
+        "url": "https://solacebraziliansteakhouse.com/menus/food-menu.html",
         "hasMenuSection": [
           {
             "@type": "MenuSection",
@@ -80,10 +77,24 @@
           },
           {
             "@type": "MenuSection",
-            "name": "Appetizers & Cocktails",
+            "name": "Appetizers",
             "hasMenuItem": [
               { "@type": "MenuItem", "name": "Rib Croquettes", "offers": { "@type": "Offer", "price": "10", "priceCurrency": "USD" } },
-              { "@type": "MenuItem", "name": "Tapioca Cubes", "offers": { "@type": "Offer", "price": "10", "priceCurrency": "USD" } },
+              { "@type": "MenuItem", "name": "Tapioca Cubes", "offers": { "@type": "Offer", "price": "10", "priceCurrency": "USD" } }
+            ]
+          }
+        ]
+      },
+      {
+        "@type": "Menu",
+        "@id": "https://solacebraziliansteakhouse.com/menus/drinks-menu.html#drinks-menu",
+        "name": "Solace Brazilian Steakhouse – Drinks Menu",
+        "url": "https://solacebraziliansteakhouse.com/menus/drinks-menu.html",
+        "hasMenuSection": [
+          {
+            "@type": "MenuSection",
+            "name": "Cocktails",
+            "hasMenuItem": [
               { "@type": "MenuItem", "name": "Traditional Caipirinha", "offers": { "@type": "Offer", "price": "14", "priceCurrency": "USD" } },
               { "@type": "MenuItem", "name": "Moscow Mule", "offers": { "@type": "Offer", "price": "13", "priceCurrency": "USD" } }
             ]
@@ -92,9 +103,9 @@
       },
       { "@type": "SiteNavigationElement", "name": "About Us", "url": "https://solacebraziliansteakhouse.com/#about" },
       { "@type": "SiteNavigationElement", "name": "Contact", "url": "https://solacebraziliansteakhouse.com/#contact" },
-      { "@type": "SiteNavigationElement", "name": "Menu", "url": "https://solacebraziliansteakhouse.com/menus/food-menu.pdf" },
-      { "@type": "SiteNavigationElement", "name": "Reserve", "url": "https://docs.google.com/forms/d/e/1FAIpQLSf6Ax-45R_5r8WwqNqkScsGLa33V6pLEotKfFcNZf-0hu3oQw/viewform" },
-      { "@type": "SiteNavigationElement", "name": "Drinks Menu", "url": "https://solacebraziliansteakhouse.com/menus/drinks-menu.pdf" }
+      { "@type": "SiteNavigationElement", "name": "Menu", "url": "https://solacebraziliansteakhouse.com/menus/food-menu.html" },
+      { "@type": "SiteNavigationElement", "name": "Reserve", "url": "https://solacebraziliansteakhouse.com/reserve.html" },
+      { "@type": "SiteNavigationElement", "name": "Drinks Menu", "url": "https://solacebraziliansteakhouse.com/menus/drinks-menu.html" }
     ]
   }
   </script>
@@ -574,6 +585,62 @@
       height: 100%;
       object-fit: contain;
       object-position: center;
+    }
+
+    /* ========== 6. EVENTS ========== */
+    .events-section{
+      background-color: #050505;
+      padding: 90px 0;
+    }
+    .events-container{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .events-title{
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: #FDFBF7;
+      margin: 15px 0 25px 0;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+    .events-description{
+      font-family: 'Inter', sans-serif;
+      color: #A0A0A0;
+      line-height: 1.8;
+      margin: 0 0 30px 0;
+      font-size: 1rem;
+    }
+    .events-actions{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .events-image-wrapper{
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--surface-border);
+      background: var(--surface);
+    }
+    .events-image-wrapper img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    @media (max-width: 768px){
+      .events-container{
+        grid-template-columns: 1fr;
+      }
+      .events-title{
+        font-size: 2.2rem;
+      }
     }
 
     /* ========== 6. OUR MENU ========== */
@@ -1225,12 +1292,12 @@
   <header class="navbar">
     <a href="#hero" class="logo"><img src="image/logo1.png" width="200" height="60" loading="lazy" alt="Solace Brazilian Steakhouse and Bar – Brazilian steakhouse Lawrence MA" class="logo-img"></a>
     <ul class="nav-links">
-      <li><a href="menus/food-menu.pdf" target="_blank" rel="noopener">Menu</a></li>
+      <li><a href="menus/food-menu.html" target="_blank" rel="noopener">Menu</a></li>
       <li><a href="#about">About Us</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-right">
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSf6Ax-45R_5r8WwqNqkScsGLa33V6pLEotKfFcNZf-0hu3oQw/viewform" class="btn-reserve" target="_blank" rel="noopener noreferrer">Reserve</a>
+      <a href="reserve.html" class="btn-reserve">Reserve</a>
     </div>
   </header>
 
@@ -1244,7 +1311,7 @@
       </div>
 
       <div class="mah-buttons">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf6Ax-45R_5r8WwqNqkScsGLa33V6pLEotKfFcNZf-0hu3oQw/viewform" class="mah-btn mah-btn-primary" target="_blank" rel="noopener noreferrer">
+        <a href="reserve.html" class="mah-btn mah-btn-primary">
           <span class="mah-btn-text">Make a Reservation</span>
           <i class="fa-solid fa-arrow-right"></i>
         </a>
@@ -1269,12 +1336,12 @@
           <i class="fa-solid fa-square-parking"></i>
         </a>
 
-        <a href="menus/food-menu.pdf" class="mah-btn" target="_blank" rel="noopener">
+        <a href="menus/food-menu.html" class="mah-btn" target="_blank" rel="noopener">
           <span class="mah-btn-text">Food Menu</span>
           <i class="fa-solid fa-utensils"></i>
         </a>
 
-        <a href="menus/drinks-menu.pdf" class="mah-btn" target="_blank" rel="noopener">
+        <a href="menus/drinks-menu.html" class="mah-btn" target="_blank" rel="noopener">
           <span class="mah-btn-text">Drinks Menu</span>
           <i class="fa-solid fa-martini-glass"></i>
         </a>
@@ -1303,8 +1370,8 @@
         <h1 class="hero-title">Brazilian Steakhouse in Lawrence, MA</h1>
         <p class="hero-subtitle">Experience an authentic Brazilian steakhouse in Lawrence, MA. Our rodizio brings Brazilian BBQ and premium churrasco carved tableside — the best Brazilian restaurant near you, with handcrafted cocktails and a steakhouse experience you won't forget.</p>
         <div class="hero-btns">
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSf6Ax-45R_5r8WwqNqkScsGLa33V6pLEotKfFcNZf-0hu3oQw/viewform" class="btn-solid" target="_blank" rel="noopener noreferrer">Reserve Table <i class="fa-solid fa-arrow-right"></i></a>
-          <a href="menus/food-menu.pdf" class="btn-outline" target="_blank" rel="noopener">Explore Menu <i class="fa-solid fa-utensils"></i></a>
+          <a href="reserve.html" class="btn-solid">Reserve Table <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="menus/food-menu.html" class="btn-outline" target="_blank" rel="noopener">Explore Menu <i class="fa-solid fa-utensils"></i></a>
         </div>
       </div>
       <div class="hero-right">
@@ -1328,12 +1395,14 @@
   <section class="about" id="about">
     <div>
       <h2>Authentic Brazilian Steakhouse Experience in Lawrence, MA</h2>
-      <p>Solace Brazilian Steakhouse & Bar – 101 Essex St, Lawrence MA – brings you an authentic Brazilian steakhouse experience in Lawrence MA. We're the Brazilian restaurant and rodizio near you that Lawrence, Andover, and Methuen diners trust for Brazilian BBQ and churrasco. Our gauchos carve premium cuts tableside while you enjoy traditional sides and handcrafted cocktails in an elegant, welcoming setting.</p>
+      <p><strong>Solace Brazilian Steakhouse & Bar</strong> brings the heart of Brazilian rodizio and churrasco to Lawrence, MA. From the moment you walk in, our goal is to make your table feel like part of our family.</p>
+      <p>Led by our founding team of Brazilian chefs and a hospitality-minded group, Solace was created to share a tradition that feels personal: premium cuts served tableside, paired with warm, attentive service that helps every guest enjoy the experience.</p>
+      <p>Whether it is a date night, a family celebration, or a work dinner, we focus on flavor, atmosphere, and welcoming energy—so you leave with a full plate and a great memory.</p>
       <div class="stats-row">
-        <div class="stat-item"><strong>15+</strong><span>Premium Cuts</span></div>
-        <div class="stat-item"><strong>100%</strong><span>Authentic Rodizio</span></div>
-        <div class="stat-item"><strong>Craft</strong><span>Signature Cocktails</span></div>
-        <div class="stat-item"><strong>Free</strong><span>Local Parking</span></div>
+        <div class="stat-item"><strong>Tableside Rodizio</strong><span>Carved with care</span></div>
+        <div class="stat-item"><strong>Premium Cuts</strong><span>Grilled to perfection</span></div>
+        <div class="stat-item"><strong>Hospitality First</strong><span>Service that feels personal</span></div>
+        <div class="stat-item"><strong>Lawrence Community</strong><span>Local favorite for gatherings</span></div>
       </div>
     </div>
     <div class="about-images">
@@ -1359,7 +1428,7 @@
         <h4 class="dish-card-title">Picanha</h4>
         <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
         <div class="price">$30</div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf6Ax-45R_5r8WwqNqkScsGLa33V6pLEotKfFcNZf-0hu3oQw/viewform" class="btn-small" target="_blank" rel="noopener">Reserve now</a>
+        <a href="reserve.html" class="btn-small">Reserve now</a>
       </article>
       <article class="dish-card">
         <div class="img-wrap">
@@ -1368,7 +1437,7 @@
         <h4 class="dish-card-title">Tomahawk</h4>
         <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
         <div class="price">$64</div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf6Ax-45R_5r8WwqNqkScsGLa33V6pLEotKfFcNZf-0hu3oQw/viewform" class="btn-small" target="_blank" rel="noopener">Reserve now</a>
+        <a href="reserve.html" class="btn-small">Reserve now</a>
       </article>
       <article class="dish-card">
         <div class="img-wrap">
@@ -1377,7 +1446,7 @@
         <h4 class="dish-card-title">Filet Mignon</h4>
         <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
         <div class="price">$35</div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf6Ax-45R_5r8WwqNqkScsGLa33V6pLEotKfFcNZf-0hu3oQw/viewform" class="btn-small" target="_blank" rel="noopener">Reserve now</a>
+        <a href="reserve.html" class="btn-small">Reserve now</a>
       </article>
       <article class="dish-card">
         <div class="img-wrap">
@@ -1386,7 +1455,7 @@
         <h4 class="dish-card-title">Whole Rack of Ribs</h4>
         <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
         <div class="price">$65</div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf6Ax-45R_5r8WwqNqkScsGLa33V6pLEotKfFcNZf-0hu3oQw/viewform" class="btn-small" target="_blank" rel="noopener">Reserve now</a>
+        <a href="reserve.html" class="btn-small">Reserve now</a>
       </article>
     </div>
     <div class="carousel-dots">
@@ -1424,7 +1493,42 @@
     </div>
   </section>
 
-  <!-- 6. OUR MENU -->
+  <!-- 6. EVENTS, CATERING & PRIVATE DINING -->
+  <section class="events-section" id="events">
+    <div class="events-container">
+      <div class="events-content">
+        <span class="wcu-tag">Events & Catering</span>
+        <h2 class="events-title">Events, Catering & Private Dining</h2>
+        <p class="events-description">Planning a celebration, a corporate dinner, or a family gathering? Solace is ready to host groups and make every occasion feel special.</p>
+
+        <div class="wcu-features">
+          <div class="wcu-feature-item">
+            <h3>Private Dining</h3>
+            <p>Bring your group for birthdays, rehearsal dinners, and team celebrations. We work with you on timing and menu style.</p>
+          </div>
+          <div class="wcu-feature-item">
+            <h3>Catering & Group Orders</h3>
+            <p>Want Solace flavors at your event? With advance notice, we can help coordinate catering and group dining options.</p>
+          </div>
+          <div class="wcu-feature-item">
+            <h3>Corporate & Community Gatherings</h3>
+            <p>From work dinners to community events, our team focuses on smooth service and a welcoming atmosphere for everyone.</p>
+          </div>
+        </div>
+
+        <div class="events-actions">
+          <a href="reserve.html" class="btn-solid">Reserve for Groups <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="tel:+19786162060" class="btn-outline" rel="noopener">Call (978) 616-2060</a>
+        </div>
+      </div>
+
+      <div class="events-image-wrapper" aria-hidden="true">
+        <img src="image/experience-churrasco.png" width="600" height="400" loading="lazy" alt="Brazilian churrasco experience" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. OUR MENU -->
   <section>
     <h2 class="section-title">Our Menu</h2>
     <p class="section-subtitle">Appetizers and cocktails to start your experience.</p>
@@ -1474,7 +1578,7 @@
       <div class="promo-content-left">
         <h2 class="promo-title">Full Brazilian Rodizio Near You</h2>
         <p class="promo-desc">Enjoy our authentic all-you-can-eat rodizio experience including premium cuts and sides. The true taste of Brazilian BBQ and churrasco in Lawrence, MA.</p>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf6Ax-45R_5r8WwqNqkScsGLa33V6pLEotKfFcNZf-0hu3oQw/viewform" class="btn-black-solid" target="_blank" rel="noopener">Reserve for $59.98 &rarr;</a>
+        <a href="reserve.html" class="btn-black-solid">Reserve for $59.98 &rarr;</a>
       </div>
 
       <div class="promo-image-right">
@@ -1492,7 +1596,7 @@
       <div class="testimonial-card">
         <div class="avatar-icon" aria-hidden="true"><i class="fa-solid fa-user"></i></div>
         <div class="name">Cliente</div>
-        <p class="review">Visitei o solace e gostei demais. A comida estava bem feita e muito saborosa, o atendimento é maravilhoso quem me atendeu foi sara que foi muito atenciosa e me ajudou a escolher o prato que estava muito bom, a equipe muito alegre e receptiva me senti muito a vontade no ambiente! Com certeza levarei minha família para conhecer também.</p>
+        <p class="review">I visited Solace and absolutely loved it. The food was beautifully prepared and full of flavor, and the service was wonderful. Sara was very attentive and helped me choose a great dish. The staff was cheerful and welcoming, and I felt completely at ease in the atmosphere. I will definitely bring my family to visit too.</p>
         <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
       </div>
       <div class="testimonial-card active">
@@ -1549,12 +1653,12 @@
           <h3 id="horario-heading" class="horario-title"><i class="fa-solid fa-clock"></i> Hours</h3>
           <ul class="destination-horario-list">
             <li><span class="day">Monday</span><span class="time cerrado">Closed</span></li>
-            <li><span class="day">Tuesday</span><span class="time">11 a.m.–12 a.m.</span></li>
-            <li><span class="day">Wednesday</span><span class="time">11 a.m.–12 a.m.</span></li>
-            <li><span class="day">Thursday</span><span class="time">11 a.m.–12 a.m.</span></li>
-            <li><span class="day">Friday</span><span class="time">11 a.m.–12 a.m.</span></li>
-            <li><span class="day">Saturday</span><span class="time">11 a.m.–12 a.m.</span></li>
-            <li><span class="day">Sunday</span><span class="time">11 a.m.–12 a.m.</span></li>
+            <li><span class="day">Tuesday</span><span class="time">11:00 AM – 12:00 AM (Midnight)</span></li>
+            <li><span class="day">Wednesday</span><span class="time">11:00 AM – 12:00 AM (Midnight)</span></li>
+            <li><span class="day">Thursday</span><span class="time">11:00 AM – 12:00 AM (Midnight)</span></li>
+            <li><span class="day">Friday</span><span class="time">11:00 AM – 12:00 AM (Midnight)</span></li>
+            <li><span class="day">Saturday</span><span class="time">11:00 AM – 12:00 AM (Midnight)</span></li>
+            <li><span class="day">Sunday</span><span class="time">11:00 AM – 12:00 AM (Midnight)</span></li>
           </ul>
         </div>
       </div>
@@ -1587,9 +1691,9 @@
       <div class="footer-col">
         <h4>QUICK LINKS</h4>
         <ul>
-          <li><a href="menus/food-menu.pdf" target="_blank" rel="noopener">Food Menu</a></li>
-          <li><a href="menus/drinks-menu.pdf" target="_blank" rel="noopener">Drinks Menu</a></li>
-          <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSf6Ax-45R_5r8WwqNqkScsGLa33V6pLEotKfFcNZf-0hu3oQw/viewform" target="_blank" rel="noopener">Reserve Online</a></li>
+          <li><a href="menus/food-menu.html" target="_blank" rel="noopener">Food Menu</a></li>
+          <li><a href="menus/drinks-menu.html" target="_blank" rel="noopener">Drinks Menu</a></li>
+          <li><a href="reserve.html">Reserve Online</a></li>
           <li><a href="https://www.google.com/maps/search/?api=1&query=101+Essex+St+Lawrence+MA" target="_blank" rel="noopener">Directions</a></li>
           <li><a href="https://search.google.com/local/writereview?placeid=ChIJHxyLbkUH44kRaTzjRQ7Dm1s" target="_blank" rel="noopener">Review on Google</a></li>
         </ul>

@@ -1,0 +1,9 @@
+{
+  "name": "solace-functions",
+  "private": true,
+  "type": "commonjs",
+  "dependencies": {
+    "@netlify/blobs": "^10.7.4"
+  }
+}
+
