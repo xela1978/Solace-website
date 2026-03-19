@@ -227,6 +227,20 @@
       var tabPending = document.getElementById('tabPending');
       var tabProcessed = document.getElementById('tabProcessed');
 
+      var ADMIN_KEY_STORAGE = 'solaceReservationsAdminKey';
+
+      function clearAdminKey() {
+        try { sessionStorage.removeItem(ADMIN_KEY_STORAGE); } catch (e) { /* ignore */ }
+        currentAdminKey = '';
+        form.style.display = 'block';
+        hideTabs();
+      }
+
+      function setAdminKey(key) {
+        currentAdminKey = key;
+        try { sessionStorage.setItem(ADMIN_KEY_STORAGE, key); } catch (e) { /* ignore */ }
+      }
+
       function showTabs() {
         if (reservationTabs) reservationTabs.style.display = 'flex';
       }
@@ -340,6 +354,10 @@
           .catch(function (err) {
             setStatus('Could not load. ' + (err && err.message ? err.message : ''), true);
             results.style.display = 'none';
+            // If the key is invalid, clear it so the user needs to enter again.
+            if (String(err && err.message ? err.message : '').toLowerCase().indexOf('unauthorized') !== -1) {
+              clearAdminKey();
+            }
           });
       }
 
@@ -357,6 +375,17 @@
         });
       }
 
+      // Auto-login on refresh (manager key stored in sessionStorage after a successful access).
+      (function autoLoadFromSession() {
+        var savedKey = '';
+        try { savedKey = sessionStorage.getItem(ADMIN_KEY_STORAGE) || ''; } catch (e) { savedKey = ''; }
+        if (!savedKey) return;
+        currentAdminKey = savedKey;
+        showTabs();
+        form.style.display = 'none';
+        loadCurrentView();
+      })();
+
       form.addEventListener('submit', async function (e) {
         e.preventDefault();
         results.style.display = 'none';
@@ -373,6 +402,7 @@
 
           // Password verified: show tabs and results section.
           showTabs();
+          setAdminKey(adminKey);
 
           if (!hasAny) {
             emptyState.style.display = 'block';
@@ -403,6 +433,10 @@
           setStatus('Could not load. Check the key or configuration. ' + (err && err.message ? err.message : ''), true);
           results.style.display = 'none';
           hideTabs();
+          // Invalid key: clear stored key so the user can re-enter.
+          if (String(err && err.message ? err.message : '').toLowerCase().indexOf('unauthorized') !== -1) {
+            clearAdminKey();
+          }
         }
       });
 
