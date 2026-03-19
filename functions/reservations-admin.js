@@ -33,12 +33,10 @@ exports.handler = async (event, context) => {
   const reservations = [];
   for (const b of blobs) {
     // Stored values are JSON strings.
-    const v = await store.get(b.key);
-    if (!v) continue;
     try {
-      // Force strong consistency for the value to avoid "stale" reads.
-      const vStrong = await store.get(b.key, { consistency: 'strong' });
-      const parsed = typeof vStrong === 'string' ? JSON.parse(vStrong) : vStrong;
+      const v = await store.get(b.key);
+      if (!v) continue;
+      const parsed = typeof v === 'string' ? JSON.parse(v) : v;
       // Ensure we always have an id to allow status updates.
       // Older records might not include `id`, so we derive it from the blob key.
       if (parsed && (!parsed.id || typeof parsed.id !== 'string')) {
