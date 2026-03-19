@@ -11,6 +11,7 @@ exports.handler = async (event, context) => {
 
   const adminKey = body.adminKey || body.key;
   const expected = process.env.RESERVATIONS_ADMIN_KEY;
+  const desiredStatus = body.status || body.view || 'pending';
 
   if (!expected) {
     return { statusCode: 500, body: 'Missing env RESERVATIONS_ADMIN_KEY' };
@@ -36,7 +37,10 @@ exports.handler = async (event, context) => {
     if (!v) continue;
     try {
       const parsed = typeof v === 'string' ? JSON.parse(v) : v;
-      reservations.push(parsed);
+      const currentStatus = parsed && parsed.status ? parsed.status : 'pending';
+      if (currentStatus === desiredStatus) {
+        reservations.push(parsed);
+      }
     } catch (e) {
       // Skip invalid entries.
     }

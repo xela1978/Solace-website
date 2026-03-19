@@ -24,6 +24,7 @@ exports.handler = async (event) => {
     id: '',
     created_at: new Date().toISOString(),
     form_name: process.env.RESERVATIONS_FORM_NAME || 'reservations',
+    status: 'pending',
     name: body.full_name || body.name || '',
     email: body.email || '',
     phone: body.phone || '',
