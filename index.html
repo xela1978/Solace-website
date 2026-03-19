@@ -135,9 +135,11 @@
   <link rel="preload" href="fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgA.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/site-fonts.css">
-  <link rel="stylesheet" href="css/font-awesome.min.css" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="css/font-awesome.min.css"></noscript>
+  <!-- Non-blocking: removes site-fonts.css from critical path (Lighthouse network dependency); preloads above still fetch woff2 early -->
+  <link rel="stylesheet" href="css/site-fonts.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="css/site-fonts.css"></noscript>
+  <link rel="stylesheet" href="css/font-awesome-subset.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="css/font-awesome-subset.css"></noscript>
   <style>
     :root {
       --gold: #C8A24A;
@@ -155,6 +157,10 @@
       --shadow: 0 4px 20px rgba(0,0,0,0.3);
       --shadow-gold: 0 4px 24px rgba(200,162,74,0.25);
       --glass: rgba(22,22,22,0.85);
+      /* WCAG AA on cream sections (#F8F6F3 / #FDFBF7) — brand gold fails contrast on light bg */
+      --text-on-cream: #141414;
+      --text-on-cream-muted: #3a3a3a;
+      --link-on-cream: #1a1a1a;
     }
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -410,7 +416,7 @@
       font-family: 'Playfair Display', serif;
       font-weight: 700;
       font-size: clamp(1.6rem, 2.2vw, 2.25rem);
-      color: var(--gold);
+      color: var(--text-on-cream);
       margin: 0 0 1rem;
     }
     .about p { color: #2A2A2A; margin: 0 0 1.5rem; }
@@ -419,9 +425,9 @@
       flex-wrap: wrap;
       gap: 1rem 1.5rem;
     }
-    .about .stat-item { color: #1C1C1C; }
-    .about .stat-item strong { display: block; font-size: 1.5rem; font-weight: 700; color: var(--gold); margin-bottom: 0.2rem; }
-    .about .stat-item span { font-size: 0.8rem; color: #4A4A4A; }
+    .about .stat-item { color: var(--text-on-cream); }
+    .about .stat-item strong { display: block; font-size: 1.5rem; font-weight: 700; color: var(--text-on-cream); margin-bottom: 0.2rem; }
+    .about .stat-item span { font-size: 0.8rem; color: var(--text-on-cream-muted); }
     .about-images {
       position: relative;
       display: flex;
@@ -479,10 +485,11 @@
       overflow: hidden;
     }
     .dish-card .img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .dish-card h4,
+    .dish-card h3,
     .dish-card .dish-card-title {
       font-family: 'Playfair Display', serif;
       font-size: 1.15rem;
+      font-weight: 700;
       color: var(--white);
       margin: 0 0 0.5rem;
     }
@@ -679,8 +686,8 @@
       box-shadow: var(--shadow);
     }
     .menu-card .circle-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .menu-card h4,
-    .menu-card .menu-card-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); margin: 0 0 0.5rem; }
+    .menu-card h3,
+    .menu-card .menu-card-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); margin: 0 0 0.5rem; font-weight: 700; }
     .menu-card p { color: var(--gray); font-size: 0.9rem; margin: 0 0 0.5rem; line-height: 1.4; }
     .menu-card .price { font-weight: 700; color: var(--gold); font-size: 1.1rem; }
     .menu-nav {
@@ -855,13 +862,13 @@
       font-family: 'Playfair Display', serif;
       font-weight: 700;
       font-size: clamp(1.75rem, 2.5vw, 2.5rem);
-      color: #1a1a1a;
+      color: var(--text-on-cream);
       margin: 0 0 0.5rem;
       line-height: 1.2;
     }
     .destination-left .destination-subtitle {
       font-family: 'Inter', sans-serif;
-      color: #5a5a5a;
+      color: var(--text-on-cream-muted);
       font-size: 1rem;
       margin: 0 0 2.5rem;
     }
@@ -888,13 +895,13 @@
       font-family: 'Inter', sans-serif;
       font-weight: 700;
       font-size: 1.05rem;
-      color: #1a1a1a;
+      color: var(--text-on-cream);
       margin-bottom: 0.25rem;
     }
     .destination-features .feature-text span {
       font-family: 'Inter', sans-serif;
       font-size: 0.95rem;
-      color: #5a5a5a;
+      color: var(--text-on-cream-muted);
       line-height: 1.5;
     }
     .destination-features .feature-phone {
@@ -902,13 +909,14 @@
       margin-top: 0.5rem;
     }
     .destination-features .feature-phone a {
-      color: #9A7A2F;
+      color: var(--link-on-cream);
       font-weight: 600;
-      text-decoration: none;
+      text-decoration: underline;
+      text-underline-offset: 0.12em;
     }
     .destination-features .feature-phone a:hover {
-      color: #C8A24A;
-      text-decoration: underline;
+      color: #000000;
+      text-decoration-thickness: 2px;
     }
     .destination-horario-card {
       background: #161616;
@@ -1313,6 +1321,7 @@
     </div>
   </header>
 
+  <main id="main-content">
   <!-- 2. HERO: Mobile Action Hub (visible on mobile) + Desktop Hero (visible on desktop) -->
   <div id="hero">
     <section class="mobile-action-hub">
@@ -1427,13 +1436,13 @@
     <div class="about-images">
       <div class="about-img">
         <picture>
-          <source type="image/webp" srcset="image/experience-churrasco-480.webp 480w, image/experience-churrasco-900.webp 900w" sizes="(max-width: 768px) 92vw, 360px">
+          <source type="image/webp" srcset="image/experience-churrasco-480.webp 480w, image/experience-churrasco-720.webp 720w, image/experience-churrasco-900.webp 900w" sizes="(max-width: 768px) 92vw, 360px">
           <img src="image/experience-churrasco.png" width="600" height="400" loading="lazy" alt="Churrasco and Brazilian BBQ at Solace steakhouse Lawrence MA">
         </picture>
       </div>
       <div class="about-img">
         <picture>
-          <source type="image/webp" srcset="image/experience-cocktail-420.webp 420w, image/experience-cocktail-820.webp 820w" sizes="(max-width: 768px) 85vw, 280px">
+          <source type="image/webp" srcset="image/experience-cocktail-420.webp 420w, image/experience-cocktail-560.webp 560w, image/experience-cocktail-820.webp 820w" sizes="(max-width: 768px) min(92vw, 400px), 260px">
           <img src="image/experience-cocktail.png" width="600" height="400" loading="lazy" alt="Cocktails at Solace Brazilian restaurant – steakhouse Lawrence MA">
         </picture>
       </div>
@@ -1450,7 +1459,7 @@
         <div class="img-wrap">
           <img src="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&amp;fit=crop&amp;w=480&amp;q=70" srcset="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&amp;fit=crop&amp;w=480&amp;q=70 480w, https://images.unsplash.com/photo-1558030006-450675393462?auto=format&amp;fit=crop&amp;w=720&amp;q=70 720w" sizes="(max-width: 768px) 100vw, 320px" width="600" height="400" loading="lazy" alt="Picanha – Brazilian steakhouse cut at Solace Lawrence MA">
         </div>
-        <h4 class="dish-card-title">Picanha</h4>
+        <h3 class="dish-card-title">Picanha</h3>
         <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
         <div class="price">$30</div>
         <a href="reserve.html" class="btn-small">Reserve now</a>
@@ -1458,11 +1467,11 @@
       <article class="dish-card">
         <div class="img-wrap">
           <picture>
-            <source type="image/webp" srcset="image/tmh1-card-560.webp 560w" sizes="(max-width: 768px) 100vw, 320px">
+            <source type="image/webp" srcset="image/tmh1-card-400.webp 400w, image/tmh1-card-560.webp 560w" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 300px">
             <img src="image/tmh1.webp" width="600" height="400" loading="lazy" alt="Tomahawk steak – steakhouse Lawrence MA Brazilian restaurant">
           </picture>
         </div>
-        <h4 class="dish-card-title">Tomahawk</h4>
+        <h3 class="dish-card-title">Tomahawk</h3>
         <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
         <div class="price">$64</div>
         <a href="reserve.html" class="btn-small">Reserve now</a>
@@ -1470,11 +1479,11 @@
       <article class="dish-card">
         <div class="img-wrap">
           <picture>
-            <source type="image/webp" srcset="image/filet_mignon-480.webp 480w, image/filet_mignon-900.webp 900w" sizes="(max-width: 768px) 100vw, 320px">
-            <img src="image/filet_mignon_1200x.jpg" width="1200" height="800" loading="lazy" alt="Filet Mignon – steak restaurants near me at Solace Lawrence MA">
+            <source type="image/webp" srcset="image/filet_mignon-480.webp 480w, image/filet_mignon-640.webp 640w, image/filet_mignon-900.webp 900w" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 300px">
+            <img src="image/filet_mignon_1200x.jpg" width="600" height="400" loading="lazy" alt="Filet Mignon – steak restaurants near me at Solace Lawrence MA">
           </picture>
         </div>
-        <h4 class="dish-card-title">Filet Mignon</h4>
+        <h3 class="dish-card-title">Filet Mignon</h3>
         <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
         <div class="price">$35</div>
         <a href="reserve.html" class="btn-small">Reserve now</a>
@@ -1482,11 +1491,11 @@
       <article class="dish-card">
         <div class="img-wrap">
           <picture>
-            <source type="image/webp" srcset="image/BEEF-RIBS-480.webp 480w, image/BEEF-RIBS-900.webp 900w" sizes="(max-width: 768px) 100vw, 320px">
+            <source type="image/webp" srcset="image/BEEF-RIBS-480.webp 480w, image/BEEF-RIBS-640.webp 640w, image/BEEF-RIBS-900.webp 900w" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 300px">
             <img src="image/BEEF-RIBS.jpg" width="600" height="400" loading="lazy" alt="Whole Rack of Ribs – Brazilian steakhouse and BBQ Lawrence MA">
           </picture>
         </div>
-        <h4 class="dish-card-title">Whole Rack of Ribs</h4>
+        <h3 class="dish-card-title">Whole Rack of Ribs</h3>
         <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
         <div class="price">$65</div>
         <a href="reserve.html" class="btn-small">Reserve now</a>
@@ -1561,7 +1570,7 @@
 
       <div class="events-image-wrapper" aria-hidden="true">
         <picture>
-          <source type="image/webp" srcset="image/experience-churrasco-480.webp 480w, image/experience-churrasco-900.webp 900w" sizes="(max-width: 768px) 92vw, 480px">
+          <source type="image/webp" srcset="image/experience-churrasco-480.webp 480w, image/experience-churrasco-720.webp 720w, image/experience-churrasco-900.webp 900w" sizes="(max-width: 768px) 92vw, 560px">
           <img src="image/experience-churrasco.png" width="600" height="400" loading="lazy" alt="Brazilian churrasco experience" />
         </picture>
       </div>
@@ -1577,7 +1586,7 @@
         <div class="circle-img">
           <img src="image/rib-croquettes.png" width="200" height="200" loading="lazy" alt="Rib Croquettes – Brazilian restaurant appetizer Solace Lawrence MA">
         </div>
-        <h4 class="menu-card-title">Rib Croquettes</h4>
+        <h3 class="menu-card-title">Rib Croquettes</h3>
         <p>Crispy croquettes with tender rib meat and Brazilian spices.</p>
         <div class="price">$10</div>
       </article>
@@ -1585,7 +1594,7 @@
         <div class="circle-img">
           <img src="image/tapioca%20cubes.webp" width="200" height="200" loading="lazy" alt="Tapioca Cubes – Brazilian food at Solace steakhouse Lawrence MA">
         </div>
-        <h4 class="menu-card-title">Tapioca Cubes</h4>
+        <h3 class="menu-card-title">Tapioca Cubes</h3>
         <p>Golden fried tapioca with a soft center, a Brazilian classic.</p>
         <div class="price">$10</div>
       </article>
@@ -1593,7 +1602,7 @@
         <div class="circle-img">
           <img src="image/caipirinha.png" width="200" height="200" loading="lazy" alt="Traditional Caipirinha – Brazilian restaurant cocktail Solace Lawrence MA">
         </div>
-        <h4 class="menu-card-title">Traditional Caipirinha</h4>
+        <h3 class="menu-card-title">Traditional Caipirinha</h3>
         <p>Cachaça, lime, and sugar — the national cocktail of Brazil.</p>
         <div class="price">$14</div>
       </article>
@@ -1601,7 +1610,7 @@
         <div class="circle-img">
           <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=200&amp;h=200&amp;fit=crop&amp;q=75" width="200" height="200" loading="lazy" alt="Moscow Mule – cocktails at Solace Brazilian steakhouse Lawrence MA">
         </div>
-        <h4 class="menu-card-title">Moscow Mule</h4>
+        <h3 class="menu-card-title">Moscow Mule</h3>
         <p>Vodka, ginger beer, and lime in a copper mug.</p>
         <div class="price">$13</div>
       </article>
@@ -1704,6 +1713,8 @@
       </div>
     </div>
   </section>
+
+  </main>
 
   <!-- 10. FOOTER (redesigned) -->
   <footer>

@@ -39,23 +39,29 @@ def to_webp(src: Path, out: Path, *, max_side: int | None, quality: int) -> None
 def main() -> None:
     jobs = [
         # desktop hero (large PNG → WebP for LCP)
-        ("tmh.png", "tmh-1200.webp", 1200, 82),
+        ("tmh.png", "tmh-1200.webp", 1200, 80),
         # costilla: mobile hub + WCU (large PNG)
-        ("costilla.png", "costilla-640.webp", 640, 82),
-        ("costilla.png", "costilla-1080.webp", 1080, 82),
-        # about / dishes
-        ("experience-churrasco.png", "experience-churrasco-480.webp", 480, 82),
-        ("experience-churrasco.png", "experience-churrasco-900.webp", 900, 82),
-        ("experience-cocktail.png", "experience-cocktail-420.webp", 420, 82),
-        ("experience-cocktail.png", "experience-cocktail-820.webp", 820, 82),
-        ("BEEF-RIBS.jpg", "BEEF-RIBS-480.webp", 480, 82),
-        ("BEEF-RIBS.jpg", "BEEF-RIBS-900.webp", 900, 82),
-        ("filet_mignon_1200x.jpg", "filet_mignon-480.webp", 480, 82),
-        ("filet_mignon_1200x.jpg", "filet_mignon-900.webp", 900, 82),
-        # already webp — recompress + slightly smaller max width for cards
-        ("tmh1.webp", "tmh1-card-560.webp", 560, 78),
-        ("logo1.png", "logo1-240.webp", 240, 88),
-        ("logo1.png", "logo1-460.webp", 460, 88),
+        ("costilla.png", "costilla-640.webp", 640, 78),
+        ("costilla.png", "costilla-1080.webp", 1080, 78),
+        # about / dishes — extra widths + slightly lower q for Lighthouse byte savings
+        ("experience-churrasco.png", "experience-churrasco-480.webp", 480, 76),
+        ("experience-churrasco.png", "experience-churrasco-720.webp", 720, 76),
+        ("experience-churrasco.png", "experience-churrasco-900.webp", 900, 76),
+        ("experience-cocktail.png", "experience-cocktail-420.webp", 420, 76),
+        ("experience-cocktail.png", "experience-cocktail-560.webp", 560, 76),
+        ("experience-cocktail.png", "experience-cocktail-820.webp", 820, 76),
+        ("BEEF-RIBS.jpg", "BEEF-RIBS-480.webp", 480, 76),
+        ("BEEF-RIBS.jpg", "BEEF-RIBS-640.webp", 640, 76),
+        ("BEEF-RIBS.jpg", "BEEF-RIBS-900.webp", 900, 76),
+        ("filet_mignon_1200x.jpg", "filet_mignon-480.webp", 480, 76),
+        ("filet_mignon_1200x.jpg", "filet_mignon-640.webp", 640, 76),
+        ("filet_mignon_1200x.jpg", "filet_mignon-900.webp", 900, 76),
+        # card strip ~140px tall; 400w covers 2x DPR ~200px layout width
+        ("tmh1.webp", "tmh1-card-400.webp", 400, 74),
+        ("tmh1.webp", "tmh1-card-560.webp", 560, 74),
+        # logo: keep readable; small savings vs q88
+        ("logo1.png", "logo1-240.webp", 240, 82),
+        ("logo1.png", "logo1-460.webp", 460, 82),
     ]
     for src_name, out_name, max_side, q in jobs:
         src = IMG / src_name

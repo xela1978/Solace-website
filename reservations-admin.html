@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reservations Admin | Solace</title>
   <meta name="description" content="Manage Solace reservations (requires key).">
-  <link rel="stylesheet" href="css/site-fonts.css">
+  <link rel="stylesheet" href="css/site-fonts.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="css/site-fonts.css"></noscript>
   <style>
     :root{
       --gold:#C8A24A;
@@ -198,6 +199,7 @@
 </head>
 <body>
   <div class="wrap">
+  <main id="main-content">
     <h1>Manage reservations</h1>
     <p class="sub">Enter the manager key to load saved reservations. (Server-side protected.)</p>
 
@@ -234,7 +236,7 @@
         <div id="emptyState" class="empty" style="display:none;">No reservations yet.</div>
       </div>
     </div>
-
+  </main>
     <footer></footer>
   </div>
 
