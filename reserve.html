@@ -183,20 +183,12 @@
       <p class="subtitle">Fill in your details and choose date, time, and party size. We'll confirm your reservation.</p>
 
       <div class="card">
-        <!--
-          Netlify Forms:
-          - Este formulario guarda la submission y puede enviar un email al manager desde Netlify (configura Notifications en el panel).
-          - También disparamos una función en Netlify para que la página admin muestre las reservas.
-        -->
+        <!-- Reservation submission handled by a Netlify Function. -->
         <form
+          id="reservationsForm"
           name="reservations"
           method="POST"
-          action="/reservations-thanks.html"
-          data-netlify="true"
-          data-netlify-honeypot="bot-field"
         >
-          <input type="hidden" name="form-name" value="reservations" />
-          <input type="hidden" name="subject" value="New reservation from %{siteName} (%{submissionId})" data-remove-prefix />
           <p style="display:none;">
             <label>
               Don’t fill this out if you're human:
@@ -248,8 +240,46 @@
   </main>
 
   <footer>
-    © 2026 Solace Brazilian Steakhouse & Bar. Reservations received via Netlify Forms.
+    © 2026 Solace Brazilian Steakhouse & Bar. Reservations received.
   </footer>
+  <script>
+    (function () {
+      var form = document.getElementById('reservationsForm');
+      if (!form) return;
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        var btn = form.querySelector('button[type="submit"]');
+        if (btn) btn.disabled = true;
+
+        // Build payload from the form fields.
+        var data = {};
+        var formData = new FormData(form);
+        formData.forEach(function (v, k) { data[k] = v; });
+
+        try {
+          var res = await fetch('/.netlify/functions/reservations-submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+
+          if (!res.ok) {
+            // Try to show useful details for debugging.
+            var text = await res.text().catch(function () { return ''; });
+            throw new Error(text || ('HTTP ' + res.status));
+          }
+
+          window.location.href = '/reservations-thanks.html';
+        } catch (err) {
+          // Minimal error output (user can contact the restaurant).
+          alert('Could not submit reservation. Please try again or call (978) 616-2060.');
+          if (btn) btn.disabled = false;
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
 
