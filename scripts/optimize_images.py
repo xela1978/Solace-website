@@ -39,29 +39,32 @@ def to_webp(src: Path, out: Path, *, max_side: int | None, quality: int) -> None
 def main() -> None:
     jobs = [
         # desktop hero (large PNG → WebP for LCP)
-        ("tmh.png", "tmh-1200.webp", 1200, 80),
+        ("tmh.png", "tmh-1200.webp", 1200, 76),
         # costilla: mobile hub + WCU (large PNG)
-        ("costilla.png", "costilla-640.webp", 640, 78),
-        ("costilla.png", "costilla-1080.webp", 1080, 78),
-        # about / dishes — extra widths + slightly lower q for Lighthouse byte savings
-        ("experience-churrasco.png", "experience-churrasco-480.webp", 480, 76),
-        ("experience-churrasco.png", "experience-churrasco-720.webp", 720, 76),
-        ("experience-churrasco.png", "experience-churrasco-900.webp", 900, 76),
-        ("experience-cocktail.png", "experience-cocktail-420.webp", 420, 76),
-        ("experience-cocktail.png", "experience-cocktail-560.webp", 560, 76),
-        ("experience-cocktail.png", "experience-cocktail-820.webp", 820, 76),
-        ("BEEF-RIBS.jpg", "BEEF-RIBS-480.webp", 480, 76),
-        ("BEEF-RIBS.jpg", "BEEF-RIBS-640.webp", 640, 76),
-        ("BEEF-RIBS.jpg", "BEEF-RIBS-900.webp", 900, 76),
-        ("filet_mignon_1200x.jpg", "filet_mignon-480.webp", 480, 76),
-        ("filet_mignon_1200x.jpg", "filet_mignon-640.webp", 640, 76),
-        ("filet_mignon_1200x.jpg", "filet_mignon-900.webp", 900, 76),
-        # card strip ~140px tall; 400w covers 2x DPR ~200px layout width
-        ("tmh1.webp", "tmh1-card-400.webp", 400, 74),
-        ("tmh1.webp", "tmh1-card-560.webp", 560, 74),
-        # logo: keep readable; small savings vs q88
-        ("logo1.png", "logo1-240.webp", 240, 82),
-        ("logo1.png", "logo1-460.webp", 460, 82),
+        ("costilla.png", "costilla-640.webp", 640, 74),
+        ("costilla.png", "costilla-1080.webp", 1080, 74),
+        # about / dishes — q~70 for Lighthouse; 640w churrasco avoids 720 when ~648 CSS px
+        ("experience-churrasco.png", "experience-churrasco-480.webp", 480, 70),
+        ("experience-churrasco.png", "experience-churrasco-640.webp", 640, 70),
+        ("experience-churrasco.png", "experience-churrasco-720.webp", 720, 70),
+        ("experience-churrasco.png", "experience-churrasco-900.webp", 900, 70),
+        ("experience-cocktail.png", "experience-cocktail-420.webp", 420, 68),
+        ("experience-cocktail.png", "experience-cocktail-560.webp", 560, 68),
+        ("experience-cocktail.png", "experience-cocktail-680.webp", 680, 68),
+        ("experience-cocktail.png", "experience-cocktail-820.webp", 820, 68),
+        ("BEEF-RIBS.jpg", "BEEF-RIBS-480.webp", 480, 68),
+        ("BEEF-RIBS.jpg", "BEEF-RIBS-640.webp", 640, 68),
+        ("BEEF-RIBS.jpg", "BEEF-RIBS-900.webp", 900, 68),
+        ("filet_mignon_1200x.jpg", "filet_mignon-480.webp", 480, 68),
+        ("filet_mignon_1200x.jpg", "filet_mignon-640.webp", 640, 68),
+        ("filet_mignon_1200x.jpg", "filet_mignon-900.webp", 900, 68),
+        # card strip ~140px tall
+        ("tmh1.webp", "tmh1-card-400.webp", 400, 66),
+        ("tmh1.webp", "tmh1-card-480.webp", 480, 66),
+        ("tmh1.webp", "tmh1-card-560.webp", 560, 66),
+        # logo (LCP on mobile hub): still readable at ~78
+        ("logo1.png", "logo1-240.webp", 240, 78),
+        ("logo1.png", "logo1-460.webp", 460, 78),
     ]
     for src_name, out_name, max_side, q in jobs:
         src = IMG / src_name
