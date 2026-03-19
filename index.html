@@ -130,7 +130,7 @@
   <meta name="robots" content="index, follow">
   <!-- Desktop LCP ≈ hero image; mobile hub hides hero — LCP ≈ logo (preload + fetchpriority on .mah-logo) -->
   <link rel="preload" href="image/tmh-1200.webp" as="image" type="image/webp" media="(min-width: 769px)">
-  <link rel="preload" href="image/logo1-460.webp" as="image" type="image/webp" media="(max-width: 768px)">
+  <link rel="preload" href="image/logo1-460.webp" as="image" type="image/webp" media="(max-width: 768px)" fetchpriority="high">
   <!-- Same-origin fonts: avoids critical chain fonts.googleapis.com → fonts.gstatic.com -->
   <link rel="preload" href="fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgA.woff2" as="font" type="font/woff2" crossorigin>
@@ -1317,7 +1317,8 @@
   <div id="hero">
     <section class="mobile-action-hub">
       <div class="mah-header">
-        <picture><source type="image/webp" srcset="image/logo1-240.webp 240w, image/logo1-460.webp 460w" sizes="(max-width: 480px) 90vw, 260px"><img src="image/logo1.png" width="200" height="60" fetchpriority="high" decoding="sync" alt="Solace Brazilian Steakhouse & Bar – Brazilian steakhouse Lawrence MA" class="mah-logo"></picture>
+        <!-- LCP: WebP URL in <img src> so the parser discovers it immediately (fetchpriority + preload match) -->
+        <img src="image/logo1-460.webp" srcset="image/logo1-240.webp 240w, image/logo1-460.webp 460w" sizes="(max-width: 480px) 90vw, 260px" width="200" height="60" fetchpriority="high" decoding="sync" alt="Solace Brazilian Steakhouse & Bar – Brazilian steakhouse Lawrence MA" class="mah-logo">
         <h2 class="mah-title">Brazilian Steakhouse in Lawrence, MA</h2>
         <p class="mah-subtitle">Authentic Brazilian rodízio & steakhouse near you. Solace restaurant at 101 Essex St, Lawrence MA — convenient to Andover & Methuen.</p>
       </div>
