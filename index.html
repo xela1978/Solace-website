@@ -128,7 +128,9 @@
   <link rel="icon" href="image/favicon.jpg" type="image/jpeg">
   <meta name="theme-color" content="#050505">
   <meta name="robots" content="index, follow">
-  <link rel="preload" href="image/tmh-1200.webp" as="image" type="image/webp">
+  <!-- Desktop LCP ≈ hero image; mobile hub hides hero — LCP ≈ logo (preload + fetchpriority on .mah-logo) -->
+  <link rel="preload" href="image/tmh-1200.webp" as="image" type="image/webp" media="(min-width: 769px)">
+  <link rel="preload" href="image/logo1-460.webp" as="image" type="image/webp" media="(max-width: 768px)">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
@@ -1316,7 +1318,7 @@
   <div id="hero">
     <section class="mobile-action-hub">
       <div class="mah-header">
-        <picture><source type="image/webp" srcset="image/logo1-240.webp 240w, image/logo1-460.webp 460w" sizes="(max-width: 480px) 90vw, 260px"><img src="image/logo1.png" width="200" height="60" alt="Solace Brazilian Steakhouse & Bar – Brazilian steakhouse Lawrence MA" class="mah-logo"></picture>
+        <picture><source type="image/webp" srcset="image/logo1-240.webp 240w, image/logo1-460.webp 460w" sizes="(max-width: 480px) 90vw, 260px"><img src="image/logo1.png" width="200" height="60" fetchpriority="high" decoding="sync" alt="Solace Brazilian Steakhouse & Bar – Brazilian steakhouse Lawrence MA" class="mah-logo"></picture>
         <h2 class="mah-title">Brazilian Steakhouse in Lawrence, MA</h2>
         <p class="mah-subtitle">Authentic Brazilian rodízio & steakhouse near you. Solace restaurant at 101 Essex St, Lawrence MA — convenient to Andover & Methuen.</p>
       </div>
