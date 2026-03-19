@@ -1,6 +1,9 @@
 // Custom reservation submit handler (bypasses Netlify Forms redirect issues).
 // Receives JSON body with reservation fields and stores to Netlify Blobs.
 exports.handler = async (event) => {
+  const reqId = String(Date.now()) + '-' + Math.random().toString(16).slice(2, 8);
+  console.log('reservations-submit called. reqId=', reqId);
+
   let body = {};
   try {
     body = event && event.body ? JSON.parse(event.body) : {};
@@ -32,6 +35,7 @@ exports.handler = async (event) => {
 
   record.id = String(Date.now());
   const key = `reservations/${record.id}`;
+  console.log('reservations-submit storing reservation. reqId=', reqId, 'key=', key);
 
   const { getStore, connectLambda } = await import('@netlify/blobs');
   if (typeof connectLambda === 'function') {
@@ -169,6 +173,7 @@ exports.handler = async (event) => {
         resendOk: resendOk,
         resendError: resendError,
       },
+      reqId: reqId,
     }),
   };
 };
