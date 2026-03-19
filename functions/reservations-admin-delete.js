@@ -24,7 +24,11 @@ exports.handler = async (event, context) => {
     return { statusCode: 400, body: 'Missing id' };
   }
 
-  const { getStore } = await import('@netlify/blobs');
+  const { getStore, connectLambda } = await import('@netlify/blobs');
+  // Some Netlify runtimes require explicit initialization for Netlify Blobs.
+  if (typeof connectLambda === 'function') {
+    connectLambda(event);
+  }
   const store = getStore({ name: 'reservations' });
 
   const key = `reservations/${id}`;

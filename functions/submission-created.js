@@ -14,9 +14,6 @@ exports.handler = async (event, context) => {
     return { statusCode: 200, body: 'Ignored' };
   }
 
-  const { getStore } = await import('@netlify/blobs');
-  const store = getStore({ name: 'reservations' });
-
   const d = (payload && payload.data) ? payload.data : {};
 
   // Map our HTML field names -> stored record fields.
@@ -37,6 +34,13 @@ exports.handler = async (event, context) => {
   const reservationId = record.id || record.created_at || String(Date.now());
   record.id = reservationId;
   const key = `reservations/${reservationId}`;
+
+  const { getStore, connectLambda } = await import('@netlify/blobs');
+  // Some Netlify runtimes require explicit initialization for Netlify Blobs.
+  if (typeof connectLambda === 'function') {
+    connectLambda(event);
+  }
+  const store = getStore({ name: 'reservations' });
 
   try {
     await store.set(key, JSON.stringify(record));
