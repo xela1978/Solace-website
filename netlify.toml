@@ -2,6 +2,8 @@
 [build]
   publish = "."
   # No build command needed – plain HTML/CSS/JS
+  # Install function dependencies (used by reservations/admin + storage)
+  command = "npm --prefix functions install"
 
 [functions]
   directory = "functions"
