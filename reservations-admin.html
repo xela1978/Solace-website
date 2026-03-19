@@ -228,6 +228,7 @@
       var tabProcessed = document.getElementById('tabProcessed');
 
       var ADMIN_KEY_STORAGE = 'solaceReservationsAdminKey';
+      var ADMIN_VIEW_STORAGE = 'solaceReservationsAdminView';
 
       function clearAdminKey() {
         try { sessionStorage.removeItem(ADMIN_KEY_STORAGE); } catch (e) { /* ignore */ }
@@ -364,6 +365,7 @@
       if (tabPending) {
         tabPending.addEventListener('click', function () {
           setActiveTab('pending');
+          try { sessionStorage.setItem(ADMIN_VIEW_STORAGE, 'pending'); } catch (e) { /* ignore */ }
           loadCurrentView();
         });
       }
@@ -371,6 +373,7 @@
       if (tabProcessed) {
         tabProcessed.addEventListener('click', function () {
           setActiveTab('processed');
+          try { sessionStorage.setItem(ADMIN_VIEW_STORAGE, 'processed'); } catch (e) { /* ignore */ }
           loadCurrentView();
         });
       }
@@ -381,6 +384,13 @@
         try { savedKey = sessionStorage.getItem(ADMIN_KEY_STORAGE) || ''; } catch (e) { savedKey = ''; }
         if (!savedKey) return;
         currentAdminKey = savedKey;
+        var savedView = '';
+        try { savedView = sessionStorage.getItem(ADMIN_VIEW_STORAGE) || ''; } catch (e) { savedView = ''; }
+        if (savedView === 'processed' || savedView === 'pending') {
+          setActiveTab(savedView);
+        } else {
+          setActiveTab('pending');
+        }
         showTabs();
         form.style.display = 'none';
         loadCurrentView();
@@ -458,6 +468,7 @@
           }
           // Hard refresh to ensure the item disappears from the current tab immediately.
           // This also avoids any caching issues in some browsers.
+          try { sessionStorage.setItem(ADMIN_VIEW_STORAGE, currentView); } catch (e) { /* ignore */ }
           setTimeout(function () {
             window.location.reload();
           }, 250);

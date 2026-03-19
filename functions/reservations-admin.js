@@ -37,6 +37,13 @@ exports.handler = async (event, context) => {
     if (!v) continue;
     try {
       const parsed = typeof v === 'string' ? JSON.parse(v) : v;
+      // Ensure we always have an id to allow status updates.
+      // Older records might not include `id`, so we derive it from the blob key.
+      if (parsed && (!parsed.id || typeof parsed.id !== 'string')) {
+        var derivedId = String(b.key || '').split('/').pop();
+        parsed.id = derivedId;
+      }
+
       const currentStatus = parsed && parsed.status ? parsed.status : 'pending';
       if (currentStatus === desiredStatus) {
         reservations.push(parsed);
