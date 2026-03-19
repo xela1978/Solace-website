@@ -186,7 +186,7 @@
         <button type="submit">Access</button>
       </form>
 
-      <div class="tabs" role="tablist" aria-label="Reservation status tabs">
+      <div id="reservationTabs" class="tabs" role="tablist" aria-label="Reservation status tabs" style="display:none;">
         <button type="button" id="tabPending" class="tab-btn active" role="tab" aria-selected="true" data-status="pending">Reservations</button>
         <button type="button" id="tabProcessed" class="tab-btn" role="tab" aria-selected="false" data-status="processed">Processed</button>
       </div>
@@ -223,8 +223,17 @@
       var emptyState = document.getElementById('emptyState');
       var currentAdminKey = '';
       var currentView = 'pending';
+      var reservationTabs = document.getElementById('reservationTabs');
       var tabPending = document.getElementById('tabPending');
       var tabProcessed = document.getElementById('tabProcessed');
+
+      function showTabs() {
+        if (reservationTabs) reservationTabs.style.display = 'flex';
+      }
+
+      function hideTabs() {
+        if (reservationTabs) reservationTabs.style.display = 'none';
+      }
 
       function setActiveTab(view) {
         currentView = view;
@@ -360,6 +369,9 @@
           var reservations = await loadReservations(adminKey, currentView);
           var hasAny = Array.isArray(reservations) && reservations.length > 0;
 
+          // Password verified: show tabs and results section.
+          showTabs();
+
           if (!hasAny) {
             emptyState.style.display = 'block';
             results.style.display = 'block';
@@ -388,6 +400,7 @@
         } catch (err) {
           setStatus('Could not load. Check the key or configuration. ' + (err && err.message ? err.message : ''), true);
           results.style.display = 'none';
+          hideTabs();
         }
       });
 
