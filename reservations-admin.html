@@ -88,7 +88,7 @@
       width:100%;
       border-collapse:collapse;
       font-size:0.95rem;
-      min-width:720px;
+      min-width:0;
     }
     th, td{
       padding:12px 10px;
@@ -122,6 +122,30 @@
     }
     @media (max-width: 768px){
       .wrap{ padding:42px 16px; }
+      thead{ display:none; }
+      .table-wrap{ overflow:visible; }
+      table{ width:100%; }
+      tr{
+        display:block;
+        border:1px solid rgba(42,42,42,0.9);
+        border-radius:var(--radius-lg);
+        padding:10px 12px;
+        margin-bottom:14px;
+        background:rgba(22,22,22,0.9);
+      }
+      td{
+        display:block;
+        border-bottom:none;
+        padding:8px 0;
+      }
+      td::before{
+        content: attr(data-label);
+        display:block;
+        color:var(--gold);
+        font-weight:900;
+        margin-bottom:4px;
+      }
+      td:last-child{ padding-bottom:0; }
     }
   </style>
 </head>
@@ -145,7 +169,6 @@
         <table aria-label="Reservations">
           <thead>
             <tr>
-              <th>ID</th>
               <th>Guest</th>
               <th>Contact</th>
               <th>Date/Time</th>
@@ -236,13 +259,12 @@
           reservations.forEach(function (r) {
             var tr = document.createElement('tr');
             tr.innerHTML =
-              '<td><span class="tag">' + escapeHtml(r.id) + '</span></td>' +
-              '<td>' + escapeHtml(r.name) + '</td>' +
-              '<td>' + escapeHtml(r.email) + '<br/>' + escapeHtml(r.phone) + '</td>' +
-              '<td>' + escapeHtml(r.reservation_date) + '<br/>' + escapeHtml(r.reservation_time) + '</td>' +
-              '<td>' + escapeHtml(r.party_size) + '</td>' +
-              '<td>' + escapeHtml(r.notes) + '</td>' +
-              '<td><button type="button" class="delete-btn" data-id="' + escapeHtml(r.id) + '">Borrar</button></td>';
+              '<td data-label="Guest">' + escapeHtml(r.name) + '</td>' +
+              '<td data-label="Contact">' + escapeHtml(r.email) + '<br/>' + escapeHtml(r.phone) + '</td>' +
+              '<td data-label="Date/Time">' + escapeHtml(r.reservation_date) + '<br/>' + escapeHtml(r.reservation_time) + '</td>' +
+              '<td data-label="Party size">' + escapeHtml(r.party_size) + '</td>' +
+              '<td data-label="Notes">' + escapeHtml(r.notes) + '</td>' +
+              '<td data-label="Actions"><button type="button" class="delete-btn" data-id="' + escapeHtml(r.id) + '">Delete</button></td>';
             tbody.appendChild(tr);
           });
 
@@ -279,13 +301,12 @@
           reservations.forEach(function (r) {
             var tr = document.createElement('tr');
             tr.innerHTML =
-              '<td><span class="tag">' + escapeHtml(r.id) + '</span></td>' +
-              '<td>' + escapeHtml(r.name) + '</td>' +
-              '<td>' + escapeHtml(r.email) + '<br/>' + escapeHtml(r.phone) + '</td>' +
-              '<td>' + escapeHtml(r.reservation_date) + '<br/>' + escapeHtml(r.reservation_time) + '</td>' +
-              '<td>' + escapeHtml(r.party_size) + '</td>' +
-              '<td>' + escapeHtml(r.notes) + '</td>' +
-              '<td><button type="button" class="delete-btn" data-id="' + escapeHtml(r.id) + '">Borrar</button></td>';
+              '<td data-label="Guest">' + escapeHtml(r.name) + '</td>' +
+              '<td data-label="Contact">' + escapeHtml(r.email) + '<br/>' + escapeHtml(r.phone) + '</td>' +
+              '<td data-label="Date/Time">' + escapeHtml(r.reservation_date) + '<br/>' + escapeHtml(r.reservation_time) + '</td>' +
+              '<td data-label="Party size">' + escapeHtml(r.party_size) + '</td>' +
+              '<td data-label="Notes">' + escapeHtml(r.notes) + '</td>' +
+              '<td data-label="Actions"><button type="button" class="delete-btn" data-id="' + escapeHtml(r.id) + '">Delete</button></td>';
             tbody.appendChild(tr);
           });
 
