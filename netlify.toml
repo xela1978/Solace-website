@@ -15,8 +15,13 @@
   status = 302
   force = true
 
-# Optional: any path that doesn't match a file serves index.html
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Security headers (improves SecurityHeaders.com score; CSP allows current inline scripts + CDNs)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+    # frame-ancestors + img https: for Unsplash; fonts + Font Awesome CDN; inline JS/CSS used site-wide
+    Content-Security-Policy = "default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; img-src 'self' data: https: blob:; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' data: https://fonts.googleapis.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; connect-src 'self'; object-src 'self'; media-src 'self' https:; upgrade-insecure-requests"
