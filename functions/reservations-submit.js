@@ -48,9 +48,10 @@ exports.handler = async (event) => {
 
   // Optional: send via webhook
   const webhookUrl = process.env.RESERVATIONS_EMAIL_WEBHOOK_URL;
+  var emailOk = false;
   if (webhookUrl) {
     try {
-      await fetch(webhookUrl, {
+      var webhookRes = await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -60,6 +61,11 @@ exports.handler = async (event) => {
           created_at: record.created_at,
         }),
       });
+      emailOk = webhookRes && webhookRes.ok ? true : emailOk;
+      if (webhookRes && !webhookRes.ok) {
+        var txt = await webhookRes.text().catch(function () { return ''; });
+        console.log('Webhook responded non-2xx:', webhookRes.status, txt ? txt.slice(0, 500) : '');
+      }
     } catch (e) {
       console.log('Reservation webhook failed:', e && e.message ? e.message : e);
     }
@@ -98,7 +104,7 @@ exports.handler = async (event) => {
         payload.reply_to = record.email;
       }
 
-      await fetch('https://api.resend.com/emails', {
+      var resendRes = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -106,6 +112,11 @@ exports.handler = async (event) => {
         },
         body: JSON.stringify(payload),
       });
+      emailOk = resendRes && resendRes.ok ? true : emailOk;
+      if (resendRes && !resendRes.ok) {
+        var txt = await resendRes.text().catch(function () { return ''; });
+        console.log('Resend responded non-2xx:', resendRes.status, txt ? txt.slice(0, 500) : '');
+      }
     } catch (e) {
       console.log('Resend email failed:', e && e.message ? e.message : e);
     }
@@ -114,7 +125,7 @@ exports.handler = async (event) => {
   return {
     statusCode: 200,
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ok: true }),
+    body: JSON.stringify({ ok: true, emailOk: emailOk }),
   };
 };
 
