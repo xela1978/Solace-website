@@ -626,16 +626,19 @@
         });
       }
 
-      // Testimonial carousel: DOM updates in rAF to avoid interleaving with layout reads elsewhere
+      // Testimonials: index-based advance (no repeated querySelector / sibling walks = less style recalc)
       var cards = document.querySelectorAll('.testimonial-card');
-      if (cards.length >= 3) {
+      if (cards.length >= 3 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        var tIdx = 0;
+        for (var ti = 0; ti < cards.length; ti++) {
+          if (cards[ti].classList.contains('active')) { tIdx = ti; break; }
+        }
         setInterval(function() {
+          if (document.visibilityState === 'hidden') return;
           requestAnimationFrame(function() {
-            var active = document.querySelector('.testimonial-card.active');
-            if (!active) return;
-            active.classList.remove('active');
-            var next = active.nextElementSibling || cards[0];
-            if (next) next.classList.add('active');
+            cards[tIdx].classList.remove('active');
+            tIdx = (tIdx + 1) % cards.length;
+            cards[tIdx].classList.add('active');
           });
         }, 4000);
       }
