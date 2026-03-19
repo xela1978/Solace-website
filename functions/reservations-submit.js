@@ -152,6 +152,14 @@ exports.handler = async (event) => {
         var txt = await resendRes.text().catch(function () { return ''; });
         console.log('Resend responded non-2xx:', resendRes.status, txt ? txt.slice(0, 500) : '');
         resendError = (txt || '').slice(0, 500);
+      } else {
+        // Success path: log status + message id (if present).
+        try {
+          var json = await resendRes.json().catch(function () { return null; });
+          console.log('Resend email sent:', resendRes.status, json && (json.id || json.messageId) ? (json.id || json.messageId) : '');
+        } catch (e) {
+          console.log('Resend email sent:', resendRes.status);
+        }
       }
     } catch (e) {
       console.log('Resend email failed:', e && e.message ? e.message : e);
