@@ -69,6 +69,32 @@
       border-color:var(--gold);
       color:var(--black);
     }
+    .status-btn{
+      /* Inherits base button styles; keep a clear border for actions */
+    }
+    .delete-btn{
+      background: rgba(255,107,107,0.10);
+      border: 1px solid rgba(255,107,107,0.55);
+      color: #ffb3b3;
+      padding:10px 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .delete-btn:hover{
+      background: rgba(255,107,107,0.18);
+      border-color: rgba(255,107,107,0.85);
+      color: #ffd3d3;
+    }
+    .delete-btn svg{ display:block; }
+    .actions-cell{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      justify-content:flex-start;
+    }
     .card{
       background:var(--surface);
       border:1px solid var(--surface-border);
@@ -305,6 +331,22 @@
         return await res.json();
       }
 
+      async function deleteReservation(adminKey, id) {
+        var res = await fetch('/.netlify/functions/reservations-admin-delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          cache: 'no-store',
+          body: JSON.stringify({ adminKey: adminKey, id: id })
+        });
+
+        if (!res.ok) {
+          var text = await res.text().catch(function(){ return ''; });
+          throw new Error(text || ('HTTP ' + res.status));
+        }
+
+        return await res.json();
+      }
+
       function renderReservations(reservations) {
         var hasAny = Array.isArray(reservations) && reservations.length > 0;
 
@@ -324,13 +366,35 @@
 
         reservations.forEach(function (r) {
           var tr = document.createElement('tr');
+          var restoreButton = '';
+          var markButton = '';
+          var deleteButton = '';
+
+          if (currentView === 'processed') {
+            restoreButton = '<button type="button" class="status-btn" data-id="' + escapeHtml(r.id) + '" data-status="' + nextStatusForView + '">' + buttonLabelForView + '</button>';
+            deleteButton =
+              '<button type="button" class="delete-btn" data-id="' + escapeHtml(r.id) + '" aria-label="Delete processed reservation">' +
+              '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+              '<path d="M3 6h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+              '<path d="M8 6V4h8v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+              '<path d="M6 6l1 16h10l1-16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+              '<path d="M10 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+              '<path d="M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+              '</svg>' +
+              '</button>';
+          } else {
+            markButton = '<button type="button" class="status-btn" data-id="' + escapeHtml(r.id) + '" data-status="' + nextStatusForView + '">' + buttonLabelForView + '</button>';
+          }
+
+          var actionsHtml = '<div class="actions-cell">' + (currentView === 'processed' ? (restoreButton + deleteButton) : markButton) + '</div>';
+
           tr.innerHTML =
             '<td data-label="Guest">' + escapeHtml(r.name) + '</td>' +
             '<td data-label="Contact">' + escapeHtml(r.email) + '<br/>' + escapeHtml(r.phone) + '</td>' +
             '<td data-label="Date/Time">' + escapeHtml(r.reservation_date) + '<br/>' + escapeHtml(r.reservation_time) + '</td>' +
             '<td data-label="Party size">' + escapeHtml(r.party_size) + '</td>' +
             '<td data-label="Notes">' + escapeHtml(r.notes) + '</td>' +
-            '<td data-label="Actions"><button type="button" class="status-btn" data-id="' + escapeHtml(r.id) + '" data-status="' + nextStatusForView + '">' + buttonLabelForView + '</button></td>';
+            '<td data-label="Actions">' + actionsHtml + '</td>';
           tbody.appendChild(tr);
         });
 
@@ -427,13 +491,37 @@
           var buttonLabel = currentView === 'processed' ? 'Restore' : 'Mark processed';
           reservations.forEach(function (r) {
             var tr = document.createElement('tr');
+            var actionsHtml = '';
+
+            if (currentView === 'processed') {
+              actionsHtml =
+                '<div class="actions-cell">' +
+                '<button type="button" class="status-btn" data-id="' + escapeHtml(r.id) + '" data-status="' + nextStatus + '">' + buttonLabel + '</button>' +
+                '<button type="button" class="delete-btn" data-id="' + escapeHtml(r.id) + '" aria-label="Delete processed reservation">' +
+                '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+                '<path d="M3 6h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+                '<path d="M8 6V4h8v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+                '<path d="M6 6l1 16h10l1-16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+                '<path d="M10 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+                '<path d="M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>' +
+                '</svg>' +
+                '</button>' +
+                '</div>';
+            } else {
+              actionsHtml =
+                '<div class="actions-cell">' +
+                '<button type="button" class="status-btn" data-id="' + escapeHtml(r.id) + '" data-status="' + nextStatus + '">' + buttonLabel + '</button>' +
+                '</div>';
+            }
+
             tr.innerHTML =
               '<td data-label="Guest">' + escapeHtml(r.name) + '</td>' +
               '<td data-label="Contact">' + escapeHtml(r.email) + '<br/>' + escapeHtml(r.phone) + '</td>' +
               '<td data-label="Date/Time">' + escapeHtml(r.reservation_date) + '<br/>' + escapeHtml(r.reservation_time) + '</td>' +
               '<td data-label="Party size">' + escapeHtml(r.party_size) + '</td>' +
               '<td data-label="Notes">' + escapeHtml(r.notes) + '</td>' +
-              '<td data-label="Actions"><button type="button" class="status-btn" data-id="' + escapeHtml(r.id) + '" data-status="' + nextStatus + '">' + buttonLabel + '</button></td>';
+              '<td data-label="Actions">' + actionsHtml + '</td>';
+
             tbody.appendChild(tr);
           });
 
@@ -452,48 +540,91 @@
 
       tbody.addEventListener('click', async function (e) {
         var target = e.target;
-        if (!target || !target.classList || !target.classList.contains('status-btn')) return;
+        if (!target || !target.classList) return;
+
         var id = target.getAttribute('data-id');
-        var nextStatus = target.getAttribute('data-status');
         if (!id) return;
 
-        if (!nextStatus) return;
-        if (!confirm('Update reservation status for ' + id + '?')) return;
+        var isStatusBtn = target.classList.contains('status-btn');
+        var isDeleteBtn = target.classList.contains('delete-btn');
 
-        try {
-          setStatus('Updating reservation...', false);
-          var updateRes = await setReservationStatus(currentAdminKey, id, nextStatus);
-          if (updateRes && updateRes.status) {
-            setStatus('Updated to: ' + updateRes.status, false);
-          }
-          // Re-load the current tab with a small retry because Blobs can be eventually consistent.
-          var attempts = 4;
-          var refreshed = null;
-          for (var i = 0; i < attempts; i++) {
-            if (i > 0) {
-              await new Promise(function (resolve) { setTimeout(resolve, 350 * i); });
+        if (!isStatusBtn && !isDeleteBtn) return;
+
+        if (isStatusBtn) {
+          var nextStatus = target.getAttribute('data-status');
+          if (!nextStatus) return;
+          if (!confirm('Update reservation status for ' + id + '?')) return;
+
+          try {
+            setStatus('Updating reservation...', false);
+            var updateRes = await setReservationStatus(currentAdminKey, id, nextStatus);
+            if (updateRes && updateRes.status) {
+              setStatus('Updated to: ' + updateRes.status, false);
             }
-            refreshed = await loadReservations(currentAdminKey, currentView);
-            var stillVisible = Array.isArray(refreshed) && refreshed.some(function (r) {
-              return String(r && r.id ? r.id : '') === String(id);
-            });
 
-            // If it disappeared from the current tab, we're done.
-            if (!stillVisible) break;
+            // Re-load the current tab with a small retry because Blobs can be eventually consistent.
+            var attempts = 4;
+            var refreshed = null;
+            for (var i = 0; i < attempts; i++) {
+              if (i > 0) {
+                await new Promise(function (resolve) { setTimeout(resolve, 350 * i); });
+              }
+              refreshed = await loadReservations(currentAdminKey, currentView);
+              var stillVisible = Array.isArray(refreshed) && refreshed.some(function (r) {
+                return String(r && r.id ? r.id : '') === String(id);
+              });
+              if (!stillVisible) break;
+            }
+
+            tbody.innerHTML = '';
+            emptyState.style.display = 'none';
+
+            if (!Array.isArray(refreshed) || refreshed.length === 0) {
+              emptyState.style.display = 'block';
+              setStatus(currentView === 'processed' ? 'All set. No processed reservations yet.' : 'All set. No reservations yet.', false);
+            } else {
+              renderReservations(refreshed);
+              results.style.display = 'block';
+            }
+          } catch (err) {
+            setStatus('Could not update. ' + (err && err.message ? err.message : ''), true);
           }
+        }
 
-          tbody.innerHTML = '';
-          emptyState.style.display = 'none';
+        if (isDeleteBtn) {
+          if (!confirm('Delete processed reservation ' + id + '?')) return;
 
-          if (!Array.isArray(refreshed) || refreshed.length === 0) {
-            emptyState.style.display = 'block';
-            setStatus(currentView === 'processed' ? 'All set. No processed reservations yet.' : 'All set. No reservations yet.', false);
-          } else {
-            renderReservations(refreshed);
-            results.style.display = 'block';
+          try {
+            setStatus('Deleting reservation...', false);
+            await deleteReservation(currentAdminKey, id);
+
+            // After delete, re-load with retry.
+            var attempts2 = 3;
+            var refreshed2 = null;
+            for (var j = 0; j < attempts2; j++) {
+              if (j > 0) {
+                await new Promise(function (resolve) { setTimeout(resolve, 350 * j); });
+              }
+              refreshed2 = await loadReservations(currentAdminKey, currentView);
+              var stillExists = Array.isArray(refreshed2) && refreshed2.some(function (r) {
+                return String(r && r.id ? r.id : '') === String(id);
+              });
+              if (!stillExists) break;
+            }
+
+            tbody.innerHTML = '';
+            emptyState.style.display = 'none';
+
+            if (!Array.isArray(refreshed2) || refreshed2.length === 0) {
+              emptyState.style.display = 'block';
+              setStatus('All set. No processed reservations yet.', false);
+            } else {
+              renderReservations(refreshed2);
+              results.style.display = 'block';
+            }
+          } catch (err) {
+            setStatus('Could not delete. ' + (err && err.message ? err.message : ''), true);
           }
-        } catch (err) {
-          setStatus('Could not update. ' + (err && err.message ? err.message : ''), true);
         }
       });
     })();
