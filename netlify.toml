@@ -3,6 +3,9 @@
   publish = "."
   # No build command needed – plain HTML/CSS/JS
 
+[functions]
+  directory = "functions"
+
 # Short URL for Google reviews (share: solacebraziliansteakhouse.com/review)
 [[redirects]]
   from = "/review"
