@@ -422,32 +422,11 @@
           if (updateRes && updateRes.status) {
             setStatus('Updated to: ' + updateRes.status, false);
           }
-          var reservations = await loadReservations(currentAdminKey, currentView);
-
-          tbody.innerHTML = '';
-          emptyState.style.display = 'none';
-
-          if (!Array.isArray(reservations) || reservations.length === 0) {
-            emptyState.style.display = 'block';
-            setStatus(currentView === 'processed' ? 'All set. No processed reservations yet.' : 'All set. No reservations yet.', false);
-            return;
-          }
-
-          var nextStatusForView = currentView === 'processed' ? 'pending' : 'processed';
-          var buttonLabelForView = currentView === 'processed' ? 'Restore' : 'Mark processed';
-          reservations.forEach(function (r) {
-            var tr = document.createElement('tr');
-            tr.innerHTML =
-              '<td data-label="Guest">' + escapeHtml(r.name) + '</td>' +
-              '<td data-label="Contact">' + escapeHtml(r.email) + '<br/>' + escapeHtml(r.phone) + '</td>' +
-              '<td data-label="Date/Time">' + escapeHtml(r.reservation_date) + '<br/>' + escapeHtml(r.reservation_time) + '</td>' +
-              '<td data-label="Party size">' + escapeHtml(r.party_size) + '</td>' +
-              '<td data-label="Notes">' + escapeHtml(r.notes) + '</td>' +
-              '<td data-label="Actions"><button type="button" class="status-btn" data-id="' + escapeHtml(r.id) + '" data-status="' + nextStatusForView + '">' + buttonLabelForView + '</button></td>';
-            tbody.appendChild(tr);
-          });
-
-          setStatus('Updated. Remaining: ' + reservations.length, false);
+          // Hard refresh to ensure the item disappears from the current tab immediately.
+          // This also avoids any caching issues in some browsers.
+          setTimeout(function () {
+            window.location.reload();
+          }, 250);
         } catch (err) {
           setStatus('Could not update. ' + (err && err.message ? err.message : ''), true);
         }
