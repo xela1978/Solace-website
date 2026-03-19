@@ -796,11 +796,15 @@
       padding: 1.5rem;
       max-width: 320px;
       transition: transform var(--transition), box-shadow var(--transition);
+      /* Limit reflow scope; active card promoted for transform animation */
+      contain: layout paint;
+      transform: translateZ(0);
     }
     .testimonial-card.active {
-      transform: scale(1.05);
+      transform: scale(1.05) translateZ(0);
       box-shadow: var(--shadow-gold);
       border-color: var(--gold);
+      will-change: transform;
     }
     .testimonial-card .avatar,
     .testimonial-card .avatar-icon {
@@ -1116,7 +1120,7 @@
       .dishes-grid { grid-template-columns: repeat(2, 1fr); }
       .menu-grid { grid-template-columns: repeat(2, 1fr); }
       .testimonials-grid { flex-wrap: wrap; justify-content: center; }
-      .testimonial-card.active { transform: scale(1); }
+      .testimonial-card.active { transform: scale(1) translateZ(0); }
       .footer-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 992px) {
@@ -1772,15 +1776,17 @@
         });
       }
 
-      // Optional: testimonial carousel — cycle active state
+      // Testimonial carousel: DOM updates in rAF to avoid interleaving with layout reads elsewhere
       var cards = document.querySelectorAll('.testimonial-card');
       if (cards.length >= 3) {
         setInterval(function() {
-          var active = document.querySelector('.testimonial-card.active');
-          if (!active) return;
-          active.classList.remove('active');
-          var next = active.nextElementSibling || cards[0];
-          next.classList.add('active');
+          requestAnimationFrame(function() {
+            var active = document.querySelector('.testimonial-card.active');
+            if (!active) return;
+            active.classList.remove('active');
+            var next = active.nextElementSibling || cards[0];
+            if (next) next.classList.add('active');
+          });
         }, 4000);
       }
     })();
