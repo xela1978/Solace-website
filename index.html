@@ -1225,10 +1225,13 @@
       .hero { padding: 5rem 1.5rem 3rem; }
       .dishes-grid { grid-template-columns: 1fr; }
       .menu-grid { grid-template-columns: 1fr; }
-      .about { grid-template-columns: 1fr; }
-      .about-images { flex-direction: column; align-items: center; min-height: auto; }
+      .section-light-bg .about { grid-template-columns: 1fr; gap: 1.5rem; align-items: flex-start; }
+      .about-images { flex-direction: column; align-items: center; min-height: 0; }
       .about-img { max-width: 100%; }
-      .about-img:last-child { margin-left: 0; margin-bottom: 0; }
+      .about-img:first-child { max-width: 100%; margin-top: 0; }
+      .about-img:first-child img { height: auto; max-height: 280px; object-fit: cover; }
+      .about-img:last-child { margin-left: 0; margin-bottom: 0; position: static; z-index: auto; }
+      .about-img:last-child img { height: auto; max-height: 280px; object-fit: cover; }
       .about-img img { width: 100%; height: auto; max-height: 280px; object-fit: cover; }
       .destination-section { padding: 60px 20px; }
       .destination-grid { grid-template-columns: 1fr; gap: 2.5rem; }
