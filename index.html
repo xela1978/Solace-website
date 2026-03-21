@@ -8,7 +8,7 @@
   <meta name="keywords" content="brazilian steakhouse, brazilian steakhouse lawrence ma, brazilian restaurant, rodizio near me, brazilian bbq, steakhouse near me, restaurants in lawrence ma, solace brazilian steakhouse, 101 essex st lawrence ma">
   <!-- Canonical URL: avoids duplicate content from www/non-www, trailing slash, HTTP/HTTPS -->
   <link rel="canonical" href="https://solacebraziliansteakhouse.com/">
-  <!-- Schema.org structured data: Restaurant, OpeningHours, Menu (single block for validators) -->
+  <!-- Schema.org: aggregateRating.reviewCount must be >= 1; ratingValue within worstRating–bestRating. Sync reviewCount with Google Business Profile. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -48,6 +48,13 @@
         "servesCuisine": "Brazilian",
         "priceRange": "$$",
         "acceptsReservations": true,
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": 4.9,
+          "bestRating": 5,
+          "worstRating": 1,
+          "reviewCount": 75
+        },
         "image": "https://solacebraziliansteakhouse.com/image/logo1.png",
         "hasMenu": [
           { "@id": "https://solacebraziliansteakhouse.com/menus/food-menu.html#food-menu" },
@@ -273,13 +280,13 @@
     <div class="about-images">
       <div class="about-img">
         <picture>
-          <source type="image/webp" srcset="image/experience-churrasco-480.webp 480w, image/experience-churrasco-640.webp 640w, image/experience-churrasco-720.webp 720w, image/experience-churrasco-900.webp 900w" sizes="(max-width: 768px) 92vw, 360px">
+          <source type="image/webp" srcset="image/experience-churrasco-480.webp 480w, image/experience-churrasco-640.webp 640w, image/experience-churrasco-700.webp 700w, image/experience-churrasco-720.webp 720w, image/experience-churrasco-900.webp 900w" sizes="(max-width: 768px) 92vw, 360px">
           <img src="image/experience-churrasco.png" width="600" height="400" loading="lazy" alt="Churrasco and Brazilian BBQ at Solace steakhouse Lawrence MA">
         </picture>
       </div>
       <div class="about-img">
         <picture>
-          <source type="image/webp" srcset="image/experience-cocktail-420.webp 420w, image/experience-cocktail-560.webp 560w, image/experience-cocktail-680.webp 680w, image/experience-cocktail-820.webp 820w" sizes="(max-width: 768px) min(92vw, 400px), 260px">
+          <source type="image/webp" srcset="image/experience-cocktail-420.webp 335w, image/experience-cocktail-560.webp 447w, image/experience-cocktail-680.webp 543w, image/experience-cocktail-820.webp 655w, image/experience-cocktail-980.webp 783w" sizes="(max-width: 768px) min(92vw, 400px), 260px">
           <img src="image/experience-cocktail.png" width="600" height="400" loading="lazy" alt="Cocktails at Solace Brazilian restaurant – steakhouse Lawrence MA">
         </picture>
       </div>
@@ -316,7 +323,7 @@
       <article class="dish-card">
         <div class="img-wrap">
           <picture>
-            <source type="image/webp" srcset="image/filet_mignon-480.webp 480w, image/filet_mignon-640.webp 640w, image/filet_mignon-900.webp 900w" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 280px">
+            <source type="image/webp" srcset="image/filet_mignon-480.webp 480w, image/filet_mignon-640.webp 640w, image/filet_mignon-768.webp 768w, image/filet_mignon-900.webp 900w" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 280px">
             <img src="image/filet_mignon_1200x.jpg" width="600" height="400" loading="lazy" alt="Filet Mignon – steak restaurants near me at Solace Lawrence MA">
           </picture>
         </div>
@@ -328,7 +335,7 @@
       <article class="dish-card">
         <div class="img-wrap">
           <picture>
-            <source type="image/webp" srcset="image/BEEF-RIBS-480.webp 480w, image/BEEF-RIBS-640.webp 640w, image/BEEF-RIBS-900.webp 900w" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 280px">
+            <source type="image/webp" srcset="image/BEEF-RIBS-480.webp 480w, image/BEEF-RIBS-640.webp 640w, image/BEEF-RIBS-768.webp 768w, image/BEEF-RIBS-900.webp 900w" sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 280px">
             <img src="image/BEEF-RIBS.jpg" width="600" height="400" loading="lazy" alt="Whole Rack of Ribs – Brazilian steakhouse and BBQ Lawrence MA">
           </picture>
         </div>
@@ -407,7 +414,7 @@
 
       <div class="events-image-wrapper" aria-hidden="true">
         <picture>
-          <source type="image/webp" srcset="image/experience-churrasco-480.webp 480w, image/experience-churrasco-640.webp 640w, image/experience-churrasco-720.webp 720w, image/experience-churrasco-900.webp 900w" sizes="(max-width: 768px) 92vw, min(56vw, 540px)">
+          <source type="image/webp" srcset="image/experience-churrasco-480.webp 480w, image/experience-churrasco-640.webp 640w, image/experience-churrasco-700.webp 700w, image/experience-churrasco-720.webp 720w, image/experience-churrasco-900.webp 900w" sizes="(max-width: 768px) 92vw, min(56vw, 540px)">
           <img src="image/experience-churrasco.png" width="600" height="400" loading="lazy" alt="Brazilian churrasco experience" />
         </picture>
       </div>

@@ -1,6 +1,10 @@
 """
 One-off / repeatable: generate WebP variants for faster LCP (run from repo root):
   python scripts/optimize_images.py
+
+Note: In img srcset, each NNNw must match the file's intrinsic width in pixels.
+Portrait exports (e.g. experience-cocktail) use max_side on the *longer* dimension, so
+width is smaller than the filename suggests — see index.html cocktail srcset.
 """
 from __future__ import annotations
 
@@ -43,28 +47,31 @@ def main() -> None:
         # costilla: mobile hub + WCU (large PNG)
         ("costilla.png", "costilla-640.webp", 640, 74),
         ("costilla.png", "costilla-1080.webp", 1080, 74),
-        # about / dishes — q~70 for Lighthouse; 640w churrasco avoids 720 when ~648 CSS px
-        ("experience-churrasco.png", "experience-churrasco-480.webp", 480, 70),
-        ("experience-churrasco.png", "experience-churrasco-640.webp", 640, 70),
-        ("experience-churrasco.png", "experience-churrasco-720.webp", 720, 70),
-        ("experience-churrasco.png", "experience-churrasco-900.webp", 900, 70),
-        ("experience-cocktail.png", "experience-cocktail-420.webp", 420, 68),
-        ("experience-cocktail.png", "experience-cocktail-560.webp", 560, 68),
-        ("experience-cocktail.png", "experience-cocktail-680.webp", 680, 68),
-        ("experience-cocktail.png", "experience-cocktail-820.webp", 820, 68),
-        ("BEEF-RIBS.jpg", "BEEF-RIBS-480.webp", 480, 68),
-        ("BEEF-RIBS.jpg", "BEEF-RIBS-640.webp", 640, 68),
-        ("BEEF-RIBS.jpg", "BEEF-RIBS-900.webp", 900, 68),
-        ("filet_mignon_1200x.jpg", "filet_mignon-480.webp", 480, 68),
-        ("filet_mignon_1200x.jpg", "filet_mignon-640.webp", 640, 68),
-        ("filet_mignon_1200x.jpg", "filet_mignon-900.webp", 900, 68),
-        # card strip ~140px tall
-        ("tmh1.webp", "tmh1-card-400.webp", 400, 66),
-        ("tmh1.webp", "tmh1-card-480.webp", 480, 66),
-        ("tmh1.webp", "tmh1-card-560.webp", 560, 66),
-        # logo (LCP on mobile hub): still readable at ~78
-        ("logo1.png", "logo1-240.webp", 240, 78),
-        ("logo1.png", "logo1-460.webp", 460, 78),
+        # Portrait cocktail: filenames use max HEIGHT; srcset must use intrinsic WIDTH (335,447,543,655)
+        ("experience-churrasco.png", "experience-churrasco-480.webp", 480, 58),
+        ("experience-churrasco.png", "experience-churrasco-640.webp", 640, 58),
+        ("experience-churrasco.png", "experience-churrasco-700.webp", 700, 58),
+        ("experience-churrasco.png", "experience-churrasco-720.webp", 720, 58),
+        ("experience-churrasco.png", "experience-churrasco-900.webp", 900, 55),
+        ("experience-cocktail.png", "experience-cocktail-420.webp", 420, 55),
+        ("experience-cocktail.png", "experience-cocktail-560.webp", 560, 55),
+        ("experience-cocktail.png", "experience-cocktail-680.webp", 680, 52),
+        ("experience-cocktail.png", "experience-cocktail-820.webp", 820, 52),
+        # ~784px wide for 2x mobile slots (~390px); max_side = long edge (height)
+        ("experience-cocktail.png", "experience-cocktail-980.webp", 980, 50),
+        ("BEEF-RIBS.jpg", "BEEF-RIBS-480.webp", 480, 55),
+        ("BEEF-RIBS.jpg", "BEEF-RIBS-640.webp", 640, 52),
+        ("BEEF-RIBS.jpg", "BEEF-RIBS-768.webp", 768, 50),
+        ("BEEF-RIBS.jpg", "BEEF-RIBS-900.webp", 900, 45),
+        ("filet_mignon_1200x.jpg", "filet_mignon-480.webp", 480, 55),
+        ("filet_mignon_1200x.jpg", "filet_mignon-640.webp", 640, 52),
+        ("filet_mignon_1200x.jpg", "filet_mignon-768.webp", 768, 50),
+        ("filet_mignon_1200x.jpg", "filet_mignon-900.webp", 900, 45),
+        ("tmh1.webp", "tmh1-card-400.webp", 400, 52),
+        ("tmh1.webp", "tmh1-card-480.webp", 480, 52),
+        ("tmh1.webp", "tmh1-card-560.webp", 560, 48),
+        ("logo1.png", "logo1-240.webp", 240, 68),
+        ("logo1.png", "logo1-460.webp", 460, 65),
     ]
     for src_name, out_name, max_side, q in jobs:
         src = IMG / src_name
