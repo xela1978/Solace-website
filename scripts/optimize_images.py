@@ -4,7 +4,7 @@ One-off / repeatable: generate WebP variants for faster LCP (run from repo root)
 
 Note: In img srcset, each NNNw must match the file's intrinsic width in pixels.
 Portrait exports (e.g. experience-cocktail) use max_side on the *longer* dimension, so
-width is smaller than the filename suggests — see index.html cocktail srcset.
+width is smaller than the filename suggests — verify with PIL and match srcset `NNNw` to intrinsic width.
 """
 from __future__ import annotations
 
@@ -48,30 +48,31 @@ def main() -> None:
         ("costilla.png", "costilla-640.webp", 640, 74),
         ("costilla.png", "costilla-1080.webp", 1080, 74),
         # Portrait cocktail: filenames use max HEIGHT; srcset must use intrinsic WIDTH (335,447,543,655)
-        ("experience-churrasco.png", "experience-churrasco-480.webp", 480, 58),
-        ("experience-churrasco.png", "experience-churrasco-640.webp", 640, 58),
-        ("experience-churrasco.png", "experience-churrasco-700.webp", 700, 58),
-        ("experience-churrasco.png", "experience-churrasco-720.webp", 720, 58),
-        ("experience-churrasco.png", "experience-churrasco-900.webp", 900, 55),
-        ("experience-cocktail.png", "experience-cocktail-420.webp", 420, 55),
-        ("experience-cocktail.png", "experience-cocktail-560.webp", 560, 55),
-        ("experience-cocktail.png", "experience-cocktail-680.webp", 680, 52),
-        ("experience-cocktail.png", "experience-cocktail-820.webp", 820, 52),
-        # ~784px wide for 2x mobile slots (~390px); max_side = long edge (height)
-        ("experience-cocktail.png", "experience-cocktail-980.webp", 980, 50),
-        ("BEEF-RIBS.jpg", "BEEF-RIBS-480.webp", 480, 55),
-        ("BEEF-RIBS.jpg", "BEEF-RIBS-640.webp", 640, 52),
-        ("BEEF-RIBS.jpg", "BEEF-RIBS-768.webp", 768, 50),
-        ("BEEF-RIBS.jpg", "BEEF-RIBS-900.webp", 900, 45),
-        ("filet_mignon_1200x.jpg", "filet_mignon-480.webp", 480, 55),
-        ("filet_mignon_1200x.jpg", "filet_mignon-640.webp", 640, 52),
-        ("filet_mignon_1200x.jpg", "filet_mignon-768.webp", 768, 50),
-        ("filet_mignon_1200x.jpg", "filet_mignon-900.webp", 900, 45),
-        ("tmh1.webp", "tmh1-card-400.webp", 400, 52),
-        ("tmh1.webp", "tmh1-card-480.webp", 480, 52),
-        ("tmh1.webp", "tmh1-card-560.webp", 560, 48),
-        ("logo1.png", "logo1-240.webp", 240, 68),
-        ("logo1.png", "logo1-460.webp", 460, 65),
+        ("experience-churrasco.png", "experience-churrasco-480.webp", 480, 56),
+        ("experience-churrasco.png", "experience-churrasco-640.webp", 640, 56),
+        ("experience-churrasco.png", "experience-churrasco-700.webp", 700, 50),
+        ("experience-churrasco.png", "experience-churrasco-720.webp", 720, 56),
+        ("experience-churrasco.png", "experience-churrasco-900.webp", 900, 52),
+        ("experience-cocktail.png", "experience-cocktail-420.webp", 420, 50),
+        ("experience-cocktail.png", "experience-cocktail-560.webp", 560, 50),
+        ("experience-cocktail.png", "experience-cocktail-680.webp", 680, 44),
+        # Between 680 and 820: lighter file for ~2x mobile without jumping to 783w
+        ("experience-cocktail.png", "experience-cocktail-760.webp", 760, 42),
+        ("experience-cocktail.png", "experience-cocktail-820.webp", 820, 42),
+        ("experience-cocktail.png", "experience-cocktail-980.webp", 980, 40),
+        ("BEEF-RIBS.jpg", "BEEF-RIBS-480.webp", 480, 52),
+        ("BEEF-RIBS.jpg", "BEEF-RIBS-640.webp", 640, 48),
+        ("BEEF-RIBS.jpg", "BEEF-RIBS-768.webp", 768, 42),
+        ("BEEF-RIBS.jpg", "BEEF-RIBS-900.webp", 900, 40),
+        ("filet_mignon_1200x.jpg", "filet_mignon-480.webp", 480, 52),
+        ("filet_mignon_1200x.jpg", "filet_mignon-640.webp", 640, 48),
+        ("filet_mignon_1200x.jpg", "filet_mignon-768.webp", 768, 42),
+        ("filet_mignon_1200x.jpg", "filet_mignon-900.webp", 900, 40),
+        ("tmh1.webp", "tmh1-card-400.webp", 400, 48),
+        ("tmh1.webp", "tmh1-card-480.webp", 480, 48),
+        ("tmh1.webp", "tmh1-card-560.webp", 560, 40),
+        ("logo1.png", "logo1-240.webp", 240, 58),
+        ("logo1.png", "logo1-460.webp", 460, 55),
     ]
     for src_name, out_name, max_side, q in jobs:
         src = IMG / src_name
