@@ -8,6 +8,11 @@
 [functions]
   directory = "functions"
 
+# Daily ~9–10am Eastern: send Google review request email to guests whose visit was yesterday
+# (see functions/scheduled-review-followup.js). Requires RESEND_API_KEY + RESEND_FROM_EMAIL.
+[functions."scheduled-review-followup"]
+  schedule = "0 14 * * *"
+
 # Short URL for Google reviews (share: solacebraziliansteakhouse.com/review)
 [[redirects]]
   from = "/review"
