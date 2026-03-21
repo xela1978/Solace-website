@@ -301,6 +301,37 @@
         });
       }
 
+      /** YYYY-MM-DD → MM/DD/YYYY (US) */
+      function formatReservationDate(dateStr) {
+        if (!dateStr || typeof dateStr !== 'string') return '';
+        var m = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})/);
+        if (!m) return escapeHtml(dateStr);
+        return m[2] + '/' + m[3] + '/' + m[1];
+      }
+
+      /** HH:MM (24h) → h:mm AM/PM */
+      function formatReservationTime(timeStr) {
+        if (!timeStr || typeof timeStr !== 'string') return '';
+        var m = timeStr.match(/^(\d{1,2}):(\d{2})(?::\d{2})?/);
+        if (!m) return escapeHtml(timeStr);
+        var h = parseInt(m[1], 10);
+        var min = m[2];
+        if (isNaN(h) || h < 0 || h > 23) return escapeHtml(timeStr);
+        var ap = h >= 12 ? 'PM' : 'AM';
+        var h12 = h % 12;
+        if (h12 === 0) h12 = 12;
+        return h12 + ':' + min + ' ' + ap;
+      }
+
+      function formatReservationDateTimeCell(r) {
+        var d = formatReservationDate(r.reservation_date);
+        var t = formatReservationTime(r.reservation_time);
+        if (d && t) return d + '<br/>' + t;
+        if (d) return d;
+        if (t) return t;
+        return '';
+      }
+
       async function loadReservations(adminKey, status) {
         var res = await fetch('/.netlify/functions/reservations-admin', {
           method: 'POST',
@@ -391,7 +422,7 @@
           tr.innerHTML =
             '<td data-label="Guest">' + escapeHtml(r.name) + '</td>' +
             '<td data-label="Contact">' + escapeHtml(r.email) + '<br/>' + escapeHtml(r.phone) + '</td>' +
-            '<td data-label="Date/Time">' + escapeHtml(r.reservation_date) + '<br/>' + escapeHtml(r.reservation_time) + '</td>' +
+            '<td data-label="Date/Time">' + formatReservationDateTimeCell(r) + '</td>' +
             '<td data-label="Party size">' + escapeHtml(r.party_size) + '</td>' +
             '<td data-label="Notes">' + escapeHtml(r.notes) + '</td>' +
             '<td data-label="Actions">' + actionsHtml + '</td>';
@@ -517,7 +548,7 @@
             tr.innerHTML =
               '<td data-label="Guest">' + escapeHtml(r.name) + '</td>' +
               '<td data-label="Contact">' + escapeHtml(r.email) + '<br/>' + escapeHtml(r.phone) + '</td>' +
-              '<td data-label="Date/Time">' + escapeHtml(r.reservation_date) + '<br/>' + escapeHtml(r.reservation_time) + '</td>' +
+              '<td data-label="Date/Time">' + formatReservationDateTimeCell(r) + '</td>' +
               '<td data-label="Party size">' + escapeHtml(r.party_size) + '</td>' +
               '<td data-label="Notes">' + escapeHtml(r.notes) + '</td>' +
               '<td data-label="Actions">' + actionsHtml + '</td>';
