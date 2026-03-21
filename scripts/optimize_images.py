@@ -3,6 +3,7 @@ One-off / repeatable: generate WebP variants for faster LCP (run from repo root)
   python scripts/optimize_images.py
 
 Note: In img srcset, each NNNw must match the file's intrinsic width in pixels.
+Desktop hero (tmh.png portrait): tmh-640.webp→512w, tmh-800→640w, tmh-1000→800w, tmh-1200→960w.
 Portrait exports (e.g. experience-cocktail) use max_side on the *longer* dimension, so
 width is smaller than the filename suggests — verify with PIL and match srcset `NNNw` to intrinsic width.
 """
@@ -42,10 +43,14 @@ def to_webp(src: Path, out: Path, *, max_side: int | None, quality: int) -> None
 
 def main() -> None:
     jobs = [
-        # desktop hero (large PNG → WebP for LCP)
+        # Desktop hero LCP (portrait tmh.png): srcset `NNNw` = intrinsic width (see index.html)
+        ("tmh.png", "tmh-640.webp", 640, 74),
+        ("tmh.png", "tmh-800.webp", 800, 74),
+        ("tmh.png", "tmh-1000.webp", 1000, 74),
         ("tmh.png", "tmh-1200.webp", 1200, 76),
-        # costilla: mobile hub + WCU (large PNG)
+        # costilla: mobile hub + WCU
         ("costilla.png", "costilla-640.webp", 640, 74),
+        ("costilla.png", "costilla-960.webp", 960, 72),
         ("costilla.png", "costilla-1080.webp", 1080, 74),
         # Portrait cocktail: filenames use max HEIGHT; srcset must use intrinsic WIDTH (335,447,543,655)
         ("experience-churrasco.png", "experience-churrasco-480.webp", 480, 56),
